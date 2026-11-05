@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MyATS – See your resume the way the software does</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f3fb;--surface:#fff;--ink:#14122b;--muted:#5d5a7a;--line:#d9d6ee;--acc:#5b3df5;--acc-ink:#fff;--hi:#ff5c7a;--ok:#0f9d6b;--warn:#b7791f;--bad:#d6334f;--glow:rgba(91,61,245,.25);--paper:#fff;--paper-ink:#2a2745;
+color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c0a1f;--surface:#171433;--ink:#ece9ff;--muted:#9b97c4;--line:#2d2959;--acc:#8b74ff;--acc-ink:#0c0a1f;--hi:#ff7d96;--ok:#34d399;--warn:#fbbf24;--bad:#ff7d96;--glow:rgba(139,116,255,.35);--paper:#f6f5ff;--paper-ink:#2a2745;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0c0a1f;--surface:#171433;--ink:#ece9ff;--muted:#9b97c4;--line:#2d2959;--acc:#8b74ff;--acc-ink:#0c0a1f;--hi:#ff7d96;--ok:#34d399;--warn:#fbbf24;--bad:#ff7d96;--glow:rgba(139,116,255,.35);--paper:#f6f5ff;--paper-ink:#2a2745;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "Inter",system-ui,sans-serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+.bgfx{position:fixed;inset:0;z-index:-1;background:radial-gradient(60% 50% at 80% 0,var(--glow),transparent 70%),linear-gradient(var(--line) 1px,transparent 1px) 0 0/48px 48px,linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/48px 48px;-webkit-mask-image:radial-gradient(90% 70% at 70% 10%,#000,transparent);mask-image:radial-gradient(90% 70% at 70% 10%,#000,transparent);opacity:.55}
+.wrap{max-width:1120px;margin:auto;padding:0 22px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font:800 24px "Plus Jakarta Sans",sans-serif;letter-spacing:-.02em}
+.logo i{font-style:normal;color:var(--acc)}
+.tog{background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:7px 14px;font:500 14px "Inter",sans-serif;cursor:pointer}
+:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:36px 0 56px}
+@media(max-width:860px){.hero{grid-template-columns:1fr}}
+h1{font:800 clamp(38px,6.2vw,68px)/1.02 "Plus Jakarta Sans",sans-serif;letter-spacing:-.035em;margin:0 0 18px}
+.lede{color:var(--muted);max-width:46ch;margin:0 0 28px}
+.drop{background:var(--surface);border:1.5px dashed var(--acc);border-radius:20px;padding:26px;display:flex;gap:18px;align-items:center;transition:transform .2s,box-shadow .2s;cursor:pointer}
+.drop.over{transform:scale(1.02);box-shadow:0 0 0 6px var(--glow)}
+.drop .ic{width:54px;height:54px;border-radius:14px;background:var(--acc);color:var(--acc-ink);display:grid;place-items:center;font-size:26px;flex:none}
+.drop b{display:block;font-size:18px}.drop span{color:var(--muted);font-size:15px}
+.privacy{margin-top:14px;font-size:14px;color:var(--muted)}
+/* resume sheet */
+.stage{perspective:1100px;display:grid;place-items:center}
+.sheet{width:min(340px,86%);aspect-ratio:8.5/11;background:var(--paper);border-radius:10px;padding:26px 24px;color:var(--paper-ink);position:relative;overflow:hidden;transform:rotateY(-14deg) rotateX(6deg) rotate(2deg);box-shadow:-30px 40px 70px -20px rgba(20,10,80,.55),0 0 0 1px var(--line)}
+.sheet h4{margin:0;font:800 20px "Plus Jakarta Sans",sans-serif}
+.sheet small{display:block;font-size:11px;opacity:.7}
+.ln{height:7px;border-radius:4px;background:#cfcbe8;margin:9px 0}
+.sec{font:700 11px "Inter",sans-serif;margin-top:16px;color:var(--acc)}
+.tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;background:#ece8ff;color:#4a2fd6;margin:2px 2px 0 0;opacity:0}
+.beam{position:absolute;left:0;right:0;top:0;height:46px;background:linear-gradient(transparent,var(--glow) 70%,var(--acc));border-bottom:2px solid var(--acc);animation:beam 4.2s ease-in-out infinite}
+@keyframes beam{0%{transform:translateY(-46px)}100%{transform:translateY(calc(340px*1.294))}}
+.tag{animation:pop 4.2s infinite}
+.t1{animation-delay:.5s}.t2{animation-delay:1.2s}.t3{animation-delay:2s}.t4{animation-delay:2.7s}
+@keyframes pop{0%,8%{opacity:0;transform:scale(.8)}14%,80%{opacity:1;transform:none}100%{opacity:0}}
+.scanning .beam{animation-duration:1.4s}
+/* results */
+#res{display:none;padding-bottom:50px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:26px}
+.rgrid{display:grid;grid-template-columns:230px 1fr;gap:22px}
+@media(max-width:760px){.rgrid{grid-template-columns:1fr}}
+.ring{position:relative;width:176px;margin:0 auto 14px}
+.ring svg{transform:rotate(-90deg)}
+.ring .n{position:absolute;inset:0;display:grid;place-items:center;font:800 46px "Plus Jakarta Sans",sans-serif}
+.ring .n small{display:block;font:400 13px "Inter",sans-serif;color:var(--muted);text-align:center;margin-top:-6px}
+.verdict{text-align:center;font-weight:700;margin-bottom:14px}
+.btn{background:var(--acc);color:var(--acc-ink);border:0;border-radius:12px;padding:11px 18px;font:700 15px "Inter",sans-serif;cursor:pointer;width:100%}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tab{background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:6px 14px;font:500 14px "Inter",sans-serif;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.item{padding:12px 0 12px 14px;border-top:1px solid var(--line);border-left:3px solid var(--c)}
+.item:first-child{border-top-color:transparent}
+.item b{display:block}.item span{color:var(--muted);font-size:15px}
+.parser{margin-top:18px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px;font:13px/1.55 ui-monospace,Menlo,monospace;color:var(--muted);max-height:150px;overflow:auto;white-space:pre-wrap}
+.parser h5{font:700 14px "Inter",sans-serif;color:var(--ink);margin:0 0 6px}
+/* why */
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);padding:48px 0 60px}
+@media(max-width:760px){.why{grid-template-columns:1fr;gap:26px}}
+.why div{padding-right:28px}
+.why h3{font:800 22px "Plus Jakarta Sans",sans-serif;margin:0 0 6px;letter-spacing:-.02em}
+.why p{margin:0;color:var(--muted);font-size:16px}
+footer{border-top:1px solid var(--line);padding:22px 0 30px;color:var(--muted);font-size:14px}
+.jdbox{margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+.jdbox summary{cursor:pointer;font-weight:500}
+.jdbox textarea{width:100%;margin-top:10px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;font-size:15px;resize:vertical}
+.ghost{background:none;color:var(--ink);border:1px solid var(--line);margin-top:8px}
+#card img{width:100%;border-radius:14px;margin-top:12px}#card p{font-size:13px;color:var(--muted);text-align:center;margin:6px 0 0}
+#hist{margin-top:14px;font-size:14px;color:var(--muted);text-align:center}
+#jd:not(:empty){margin-top:18px;padding:16px;border:1px solid var(--line);border-radius:14px}
+#jd h5{margin:0 0 4px;font:800 18px "Plus Jakarta Sans",sans-serif}
+.chip{display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;margin:3px 4px 0 0;border:1px solid var(--c);color:var(--c)}
+.bar{height:8px;border-radius:4px;background:var(--line);margin:8px 0 10px;overflow:hidden}.bar i{display:block;height:100%;background:var(--acc)}
+@media print{.bgfx,nav,.hero,.why,footer,#again,#print,#hist,.tabs{display:none!important}body{background:#fff}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.tag{opacity:1}}
+</style>
+</head>
+<body>
+<div class="bgfx"></div>
+<div class="wrap">
+<nav><div class="logo">My<i>ATS</i></div><button class="tog" id="tog">Switch theme</button></nav>
+
+<section class="hero" id="hero">
+<div>
+<h1>See your resume the way hiring software does.</h1>
+<p class="lede">Drop in a PDF or Word file. In seconds you’ll know which parts a screening system can read, and which parts it can’t.</p>
+<label class="drop" id="drop" tabindex="0">
+<div class="ic">⤒</div>
+<div><b>Drop your resume here</b><span>PDF or DOCX, up to 5 MB. Or tap to browse.</span></div>
+<input type="file" id="file" accept=".pdf,.docx,.doc,.png,.jpg,.jpeg" hidden>
+</label>
+<div class="privacy">Your file is read inside your browser and never uploaded.</div>
+<details class="jdbox"><summary>Match against a job description (optional)</summary><textarea id="jdtext" rows="5" placeholder="Paste the job posting here before you drop your resume"></textarea></details>
+</div>
+<div class="stage"><div class="sheet" id="sheet">
+<h4>Aarav Mehta</h4><small>aarav@mail.com · linkedin.com/in/aarav</small>
+<div class="sec">Experience</div><div class="ln"></div><div class="ln" style="width:80%"></div>
+<span class="tag t1">engineered</span><span class="tag t2">led</span>
+<div class="sec">Education</div><div class="ln" style="width:70%"></div><div class="ln" style="width:90%"></div>
+<div class="sec">Skills</div>
+<span class="tag t3">React</span><span class="tag t4">Python</span><span class="tag t3">SQL</span>
+<div class="beam"></div></div></div>
+</section>
+
+<section id="res"><div class="panel"><div class="rgrid">
+<div>
+<div class="ring"><svg width="176" height="176" viewBox="0 0 176 176"><circle cx="88" cy="88" r="74" fill="none" stroke="var(--line)" stroke-width="12"/><circle id="arc" cx="88" cy="88" r="74" fill="none" stroke="var(--acc)" stroke-width="12" stroke-linecap="round" stroke-dasharray="465" stroke-dashoffset="465" style="transition:stroke-dashoffset 1.3s cubic-bezier(.2,.8,.2,1)"/></svg><div class="n"><div><span id="score">0</span><small>out of 100</small></div></div></div>
+<div class="verdict" id="verdict"></div>
+<button class="btn" id="again">Check another resume</button>
+<button class="btn ghost" id="print">Save report as PDF</button>
+<button class="btn ghost" id="cardbtn">Create share card</button>
+<div id="card"></div>
+<div id="hist"></div>
+</div>
+<div><div class="tabs" id="tabs" role="tablist"></div><div id="list"></div>
+<div id="jd"></div>
+<div class="parser"><h5>What the parser read</h5><span id="raw"></span></div></div>
+</div></div></section>
+
+<section class="why">
+<div><h3>Private by design</h3><p>Parsing happens on your device. There is no server to send your resume to.</p></div>
+<div><h3>Rules you can read</h3><p>Format, length, action verbs, contact details and standard headings: each check says exactly what to change.</p></div>
+<div><h3>Free to run</h3><p>A static site with no backend, so it costs nothing to host and scales to any number of visitors.</p></div>
+</section>
+<footer>MyATS · built as a student project</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+if(window.pdfjsLib)pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+const VERBS="managed engineered accelerated led built developed designed implemented created launched improved increased reduced delivered achieved optimized automated analyzed collaborated coordinated deployed established executed generated initiated integrated mentored negotiated organized planned produced resolved streamlined supervised trained transformed architected authored boosted configured conducted debugged drove enhanced expanded founded maintained migrated modernized oversaw pioneered refactored researched scaled secured simplified spearheaded tested wrote".split(" ");
+const HEADERS={Experience:/\b(experience|work history|employment|internships?)\b/i,Education:/\beducation\b|\bacademic/i,Skills:/\b(skills|technologies|technical skills)\b/i,Projects:/\bprojects?\b/i};
+let theme=null;
+$("tog").onclick=()=>{const d=theme?theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches;theme=d?"light":"dark";document.documentElement.dataset.theme=theme};
+const drop=$("drop"),fin=$("file");
+fin.onchange=()=>fin.files[0]&&handle(fin.files[0]);
+drop.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fin.click()}};
+["dragover","dragenter"].forEach(e=>drop.addEventListener(e,ev=>{ev.preventDefault();drop.classList.add("over")}));
+["dragleave","drop"].forEach(e=>drop.addEventListener(e,ev=>{ev.preventDefault();drop.classList.remove("over")}));
+drop.addEventListener("drop",ev=>ev.dataTransfer.files[0]&&handle(ev.dataTransfer.files[0]));
+$("print").onclick=()=>window.print();
+$("cardbtn").onclick=()=>makeCard();
+$("again").onclick=()=>{$("res").style.display="none";fin.value="";$("hero").scrollIntoView()};
+
+async function extract(f,ext){
+  const buf=await f.arrayBuffer();
+  if(ext==="pdf"){const pdf=await pdfjsLib.getDocument({data:buf}).promise;let t="";for(let i=1;i<=pdf.numPages;i++){const c=await(await pdf.getPage(i)).getTextContent();t+=c.items.map(x=>x.str).join(" ")+"\n"}return t}
+  if(ext==="docx")return(await mammoth.extractRawText({arrayBuffer:buf})).value;
+  return"";
+}
+async function handle(f){
+  window.__fn=f.name;const ext=f.name.split(".").pop().toLowerCase();
+  if(f.size>5*1024*1024)return alert("This file is over 5 MB. Compress it and try again.");
+  $("sheet").classList.add("scanning");
+  let t="";try{t=await extract(f,ext)}catch(e){console.error(e)}
+  await new Promise(r=>setTimeout(r,1800));
+  $("sheet").classList.remove("scanning");
+  analyze(t,ext);
+}
+function analyze(text,ext){
+  const bad=[],warn=[],ok=[];let s=0;const add=(a,t,d)=>a.push({t,d});
+  if(ext==="pdf"||ext==="docx"){s+=15;add(ok,"File format","."+ext+" files are read reliably by most systems.")}
+  else if(ext==="doc"){s+=5;add(warn,"Older Word format","Save as PDF or DOCX so every system can read it.")}
+  else add(bad,"Image file","Screening software can’t read text inside images. Upload a text-based PDF.");
+  if(!text.trim()){add(bad,"No readable text","Nothing could be extracted. If your PDF is a scan, export it again from your editor.");return show(s,bad,warn,ok,"")}
+  const w=text.trim().split(/\s+/).length;
+  if(w<300)add(bad,"Too short","Only "+w+" words. Aim for 300 to 1,500.");
+  else if(w>1500){s+=10;add(warn,"Too long","About "+w+" words, likely past two pages. Trim older or weaker entries.")}
+  else{s+=20;add(ok,"Length","A good "+w+" words.")}
+  const lo=text.toLowerCase(),found=VERBS.filter(v=>new RegExp("\\b"+v+"\\b").test(lo)),miss=VERBS.filter(v=>!found.includes(v)).slice(0,8);
+  if(found.length>=10){s+=25;add(ok,"Action verbs",found.length+" strong verbs found.")}
+  else{s+=Math.round(found.length*2.5);add(found.length>=5?warn:bad,"Weak action verbs","Found "+found.length+". Start bullet points with words like "+miss.join(", ")+".")}
+  [["Email",/[\w.+-]+@[\w-]+\.[\w.]+/,7],["Phone number",/\+?\d[\d\s().-]{8,}\d/,7],["LinkedIn URL",/linkedin\.com\/in\/[\w-]+/i,6]].forEach(([n,re,p])=>{
+    if(re.test(text)){s+=p;add(ok,n,"Found.")}else add(n==="LinkedIn URL"?warn:bad,n+" missing","Add it to the top of your resume.")});
+  Object.entries(HEADERS).forEach(([n,re])=>{if(re.test(text)){s+=5;add(ok,n+" heading","Standard heading found.")}else add(n==="Projects"?warn:bad,n+" heading missing","Use a plain heading such as “"+n+"”. Creative names confuse older systems.")});
+  const segs=text.split(/[•●▪◦]|\n/).filter(x=>x.trim().split(/\s+/).length>=6);
+  if(segs.length>=3){const nums=segs.filter(x=>/\d/.test(x)).length;if(nums/segs.length<.3)add(warn,"Few measurable results","Only "+nums+" of "+segs.length+" lines include a number. Add figures like %, users, time saved or revenue.");else add(ok,"Measurable results",nums+" lines include numbers.")}
+  const bz=[...new Set((text.match(/responsible for|worked on|helped with|duties included|team player|hard[- ]?working|detail[- ]oriented|self[- ]motivated|go-getter|synergy|results[- ]driven|passionate/gi)||[]).map(x=>x.toLowerCase()))];
+  if(bz.length)add(warn,"Weak phrases and buzzwords","Replace: "+bz.slice(0,6).join(", ")+". Show the result instead.");else add(ok,"Clear wording","No common buzzwords found.");
+  show(Math.min(s,100),bad,warn,ok,text);
+}
+const STOP=new Set("the and for with that this are you our will have from your not but all can has their who they about into more other than also such use using work working team ability strong experience years skills knowledge required preferred must should able looking join role candidate responsibilities including etc well new one any may its been were what when where which while within across both each per via".split(" "));
+function makeCard(){
+  const cs=getComputedStyle(document.documentElement),v=n=>cs.getPropertyValue(n).trim(),sc=window.__score||0;
+  const c=document.createElement("canvas");c.width=c.height=1080;const x=c.getContext("2d");
+  x.fillStyle=v("--bg");x.fillRect(0,0,1080,1080);
+  x.strokeStyle=v("--line");x.lineWidth=2;for(let i=0;i<=1080;i+=60){x.beginPath();x.moveTo(i,0);x.lineTo(i,1080);x.moveTo(0,i);x.lineTo(1080,i);x.stroke()}
+  x.fillStyle=v("--surface");x.beginPath();x.roundRect(90,90,900,900,48);x.fill();x.stroke();
+  x.textAlign="center";x.fillStyle=v("--ink");x.font="800 56px 'Plus Jakarta Sans',sans-serif";x.fillText("My",470,200);x.fillStyle=v("--acc");x.fillText("ATS",570,200);
+  const col=sc>=75?v("--ok"):sc>=50?v("--warn"):v("--bad");
+  x.lineWidth=36;x.lineCap="round";x.strokeStyle=v("--line");x.beginPath();x.arc(540,520,230,0,7);x.stroke();
+  x.strokeStyle=col;x.beginPath();x.arc(540,520,230,-Math.PI/2,-Math.PI/2+Math.PI*2*sc/100);x.stroke();
+  x.fillStyle=v("--ink");x.font="800 190px 'Plus Jakarta Sans',sans-serif";x.fillText(sc,540,585);
+  x.fillStyle=v("--muted");x.font="500 40px Inter,sans-serif";x.fillText("out of 100",540,640);
+  x.fillStyle=v("--ink");x.font="800 54px 'Plus Jakarta Sans',sans-serif";x.fillText(sc>=75?"Ready to submit":sc>=50?"Needs a few fixes":"Needs work",540,860);
+  x.fillStyle=v("--muted");x.font="500 34px Inter,sans-serif";x.fillText("My resume ATS score",540,925);
+  const url=c.toDataURL("image/png");
+  $("card").innerHTML="<img alt=\"Your score card\" src=\""+url+"\"><p>Press and hold the image to save it.</p>";
+  c.toBlob(b=>{try{const f=new File([b],"myats-score.png",{type:"image/png"});if(navigator.canShare&&navigator.canShare({files:[f]}))navigator.share({files:[f],title:"My ATS score"}).catch(()=>{})}catch(e){}});
+}
+function renderJD(raw){
+  const jd=$("jdtext").value.trim(),box=$("jd");
+  if(jd.length<40||!raw){box.innerHTML="";return}
+  const cnt={};(jd.toLowerCase().match(/[a-z][a-z+#.]{2,}/g)||[]).forEach(w=>{w=w.replace(/\.+$/,"");if(w.length>2&&!STOP.has(w))cnt[w]=(cnt[w]||0)+1});
+  const keys=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,25).map(x=>x[0]);
+  if(!keys.length){box.innerHTML="";return}
+  const lo=raw.toLowerCase(),have=keys.filter(k=>lo.includes(k)),miss=keys.filter(k=>!have.includes(k)),pct=Math.round(have.length/keys.length*100);
+  const chips=(a,c)=>a.map(k=>"<span class=\"chip\" style=\"--c:"+c+"\">"+k+"</span>").join("")||"<span style=\"color:var(--muted)\">None</span>";
+  box.innerHTML="<h5>Job match: "+pct+"%</h5><div class=\"bar\"><i style=\"width:"+pct+"%\"></i></div><div><b>In your resume</b><br>"+chips(have,"var(--ok)")+"</div><div style=\"margin-top:10px\"><b>Missing, add if true</b><br>"+chips(miss,"var(--bad)")+"</div>";
+}
+function saveHist(score){
+  try{const h=JSON.parse(localStorage.getItem("myats-hist")||"[]");const prev=h.length?h[h.length-1].s:null;h.push({s:score});localStorage.setItem("myats-hist",JSON.stringify(h.slice(-8)));
+  $("hist").textContent=h.length>1?(prev!==null?(score>=prev?"+":"")+(score-prev)+" since your last scan. ":"")+"All scans: "+h.slice(-8).map(x=>x.s).join(" → "):""}catch(e){$("hist").textContent=""}
+}
+function show(score,bad,warn,ok,raw){
+  window.__score=score;$("card").innerHTML="";renderJD(raw);saveHist(score);
+  $("res").style.display="block";
+  $("score").textContent=score;
+  const col=score>=75?"var(--ok)":score>=50?"var(--warn)":"var(--bad)";
+  $("arc").style.stroke=col;$("arc").style.strokeDashoffset=465;
+  setTimeout(()=>$("arc").style.strokeDashoffset=465*(1-score/100),60);
+  $("verdict").textContent=score>=75?"Ready to submit":score>=50?"Needs a few fixes":"Needs work";
+  $("raw").textContent=raw?raw.replace(/\s+/g," ").slice(0,700)+(raw.length>700?"…":""):"No text could be extracted.";
+  const sets={"Fix first":[bad,"var(--bad)"],"Improve":[warn,"var(--warn)"],"Passed":[ok,"var(--ok)"]};
+  let cur=bad.length?"Fix first":warn.length?"Improve":"Passed";
+  const draw=()=>{
+    $("tabs").innerHTML="";
+    Object.entries(sets).forEach(([k,[v]])=>{const b=document.createElement("button");b.className="tab";b.setAttribute("role","tab");b.setAttribute("aria-selected",k===cur);b.textContent=k+" ("+v.length+")";b.onclick=()=>{cur=k;draw()};$("tabs").appendChild(b)});
+    const [v,c]=sets[cur];
+    $("list").innerHTML=v.length?v.map(i=>"<div class=\"item\" style=\"--c:"+c+"\"><b>"+i.t+"</b><span>"+i.d+"</span></div>").join(""):"<div class=\"item\" style=\"--c:var(--line)\"><span>Nothing in this group.</span></div>";
+  };draw();
+  $("res").scrollIntoView({behavior:"smooth"});
+}
+</script>
+</body>
+</html>

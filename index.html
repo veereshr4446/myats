@@ -4,6 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MyATS – See your resume the way the software does</title>
+<meta name="description" content="Free, private resume checker. Drop in a PDF, DOCX or photo and see how ATS software reads it. Live editor, role keywords, resume builder. Nothing is uploaded.">
+<meta name="theme-color" content="#5b3df5">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MyATS">
+<meta property="og:title" content="MyATS: Free Resume ATS Checker">
+<meta property="og:description" content="Free, private resume checker. Drop in a PDF, DOCX or photo and see how ATS software reads it. Live editor, role keywords, resume builder. Nothing is uploaded.">
+<meta property="og:url" content="https://veereshr4446.github.io/myats/">
+<meta property="og:image" content="https://veereshr4446.github.io/myats/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MyATS: Free Resume ATS Checker">
+<meta name="twitter:description" content="Free, private resume checker. Drop in a PDF, DOCX or photo and see how ATS software reads it. Live editor, role keywords, resume builder. Nothing is uploaded.">
+<meta name="twitter:image" content="https://veereshr4446.github.io/myats/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -141,6 +158,56 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 .tl::before{content:"› ";color:var(--acc)}
 .tl.ok{color:var(--ok)}.tl.warn{color:var(--warn)}.tl.bad{color:var(--bad)}
 @keyframes tin{from{opacity:0;transform:translateX(-6px)}}
+.navr{display:flex;gap:8px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:0 0 26px}
+.tools a{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font:600 14px "Inter",sans-serif;color:var(--ink);text-decoration:none}
+.tools a:hover{border-color:var(--acc);color:var(--acc)}
+.ps{border-top:1px solid var(--line);padding:46px 0 30px}
+.ps h2{font:800 clamp(26px,4vw,38px)/1.1 "Plus Jakarta Sans",sans-serif;letter-spacing:-.03em;margin:0 0 6px}
+.ps .sub{color:var(--muted);margin:0 0 22px}
+.ps input,.ps textarea,.ps select{width:100%;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:15px "Inter",sans-serif}
+.ps textarea{resize:vertical}
+.ps label{display:block;font-size:13px;color:var(--muted);font-weight:600;margin:10px 0 0}
+.ps label input,.ps label textarea{margin-top:5px;font-weight:400}
+.ps select{max-width:420px}
+.ps .tip-note{font-size:13px;color:var(--muted);margin:10px 0 0}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.cgrid{grid-template-columns:1fr}}
+.ps label.cdrop{display:block;cursor:pointer;background:var(--surface);border:1.5px dashed var(--acc);border-radius:18px;padding:20px;margin:0;text-align:center;color:var(--ink);font-size:inherit}
+.cdrop b{display:block;font:800 18px "Plus Jakarta Sans",sans-serif;margin-bottom:4px}
+.cdrop span{color:var(--muted);font-size:14px;font-weight:400}
+.cscores{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:20px 0 10px}
+.cscores .n{font:800 48px/1 "Plus Jakarta Sans",sans-serif}
+.cscores small{display:block;color:var(--muted);font-size:13px}
+.cscores .ar{font-size:28px;color:var(--muted)}
+.cscores .d{font:800 24px "Plus Jakarta Sans",sans-serif;color:var(--c);margin-left:auto}
+.crow{display:grid;grid-template-columns:70px 1fr 96px;gap:10px;align-items:center;margin:9px 0;font-size:14px}
+.crow .bars .bar{height:7px;margin:3px 0}
+.crow .bars .bar.b i{opacity:.35}
+.crow b{text-align:right;font-weight:600}
+.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+@media(max-width:900px){.bgrid{grid-template-columns:1fr}}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.fgrid .wide{grid-column:1/-1}
+@media(max-width:560px){.fgrid{grid-template-columns:1fr}}
+.bform h4{font:800 17px "Plus Jakarta Sans",sans-serif;margin:24px 0 4px}
+.entry{border:1px solid var(--line);border-radius:14px;padding:12px;margin:8px 0;background:var(--bg);display:grid;gap:8px}
+.rm{justify-self:end;background:none;border:0;color:var(--bad);cursor:pointer;font:600 13px "Inter",sans-serif;padding:2px 4px}
+.btn.small{width:auto;padding:8px 14px;margin-top:6px}
+.bprev{position:sticky;top:12px}
+@media(max-width:900px){.bprev{position:static}}
+.bact{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.bact .btn{width:auto;padding:9px 16px;margin:0}
+.paper{background:#fff;border:1px solid var(--line);border-radius:6px;padding:28px 30px;box-shadow:0 20px 50px -24px rgba(20,10,80,.45);min-height:420px;overflow-wrap:anywhere}
+.rsm{color:#111;font:10.5pt/1.4 Arial,Helvetica,sans-serif}
+#report.rsm{font:10.5pt/1.4 Arial,Helvetica,sans-serif;color:#111}
+.rsm h1{font:700 20pt/1.1 Arial,Helvetica,sans-serif;margin:0;letter-spacing:0;color:#111}
+.rsm .rt{font-size:11pt;margin-top:2px}
+.rsm .rc{font-size:9.5pt;margin-top:3px}
+.rsm h2{font:700 11pt Arial,Helvetica,sans-serif;text-transform:uppercase;border-bottom:1px solid #111;margin:12px 0 5px;padding-bottom:2px;letter-spacing:.04em;color:#111}
+.rsm p{margin:0}.rsm ul{margin:2px 0 6px;padding-left:18px}.rsm li{margin:1px 0}
+.rsm .rrow{display:flex;justify-content:space-between;gap:10px;margin-top:5px}.rsm .rrow span{white-space:nowrap}
+.rsm .muted{color:#777}
 .est{margin:-6px 0 14px;text-align:center;font-size:12px;color:var(--muted)}
 .blk{margin-top:18px}
 .blk:not(:empty){padding:16px;border:1px solid var(--line);border-radius:14px}
@@ -192,12 +259,12 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 <body>
 <div class="bgfx"></div>
 <div class="wrap">
-<nav><div class="logo">My<i>ATS</i></div><button class="tog" id="tog">Switch theme</button></nav>
+<nav><div class="logo">My<i>ATS</i></div><div class="navr"><button class="tog" id="inst" hidden>Install app</button><button class="tog" id="tog">Switch theme</button></div></nav>
 
 <section class="hero" id="hero">
 <div>
 <h1>See your resume the way <span class="typed" id="typed">hiring software</span> does.</h1>
-<p class="lede">Drop in a PDF or Word file. In seconds you’ll know which parts a screening system can read, and which parts it can’t.</p>
+<p class="lede">Drop in a PDF, Word file or photo. In seconds you’ll know which parts a screening system can read, and which parts it can’t.</p>
 <label class="drop" id="drop" tabindex="0">
 <div class="ic">⤒</div>
 <div><b>Drop your resume here</b><span>PDF, DOCX, or a photo or scan of your resume, up to 5 MB. Or tap to browse.</span></div>
@@ -226,6 +293,8 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 </div>
 <div class="beam"></div></div></div></div>
 </section>
+
+<div class="tools" role="navigation" aria-label="Tools"><a href="#live">Live editor</a><a href="#roles">Role keywords</a><a href="#compare">Compare resumes</a><a href="#builder">Resume builder</a></div>
 
 <section id="res"><div class="panel"><div class="rgrid">
 <div>
@@ -263,6 +332,52 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 <div id="lbd"></div>
 <div id="lis"></div>
 <div id="ltips" class="blk"></div>
+</div>
+</div>
+</section>
+
+<section class="ps" id="roles">
+<h2>Role keyword check</h2>
+<p class="sub">Pick the role you are applying for. You will see which common keywords your resume already has and which are missing. It uses your last scan or the text in the live editor.</p>
+<select id="role" aria-label="Role"></select>
+<div id="rolebox" class="blk"></div>
+</section>
+
+<section class="ps" id="compare">
+<h2>Compare two resumes</h2>
+<p class="sub">Upload an older and a newer version to see exactly what improved. Files stay in your browser.</p>
+<div class="cgrid">
+<label class="cdrop"><b>Before</b><span id="cnA">Older version (PDF, DOCX or image)</span><input type="file" id="cfA" accept=".pdf,.docx,.png,.jpg,.jpeg,.webp" hidden></label>
+<label class="cdrop"><b>After</b><span id="cnB">Newer version (PDF, DOCX or image)</span><input type="file" id="cfB" accept=".pdf,.docx,.png,.jpg,.jpeg,.webp" hidden></label>
+</div>
+<button class="sample" id="csample" type="button">No files handy? Try a sample comparison.</button>
+<div id="cres"></div>
+</section>
+
+<section class="ps" id="builder">
+<h2>ATS-friendly resume builder</h2>
+<p class="sub">Fill in your details to get a clean one-column resume with standard headings, the layout ATS software reads best. Download it as PDF or Word, or send it straight to the scorer. Your details are saved only in this browser.</p>
+<div class="bgrid">
+<div class="bform">
+<div class="fgrid">
+<label>Full name<input data-k="name" autocomplete="name"></label>
+<label>Job title<input data-k="title" placeholder="e.g. Frontend Developer"></label>
+<label>Email<input data-k="email" type="email" autocomplete="email"></label>
+<label>Phone<input data-k="phone" type="tel" autocomplete="tel"></label>
+<label>LinkedIn<input data-k="linkedin" placeholder="linkedin.com/in/yourname"></label>
+<label>GitHub or portfolio<input data-k="github" placeholder="github.com/yourname"></label>
+<label class="wide">Location<input data-k="location" placeholder="City, State"></label>
+</div>
+<label>Summary (2 to 3 lines)<textarea data-k="summary" rows="3"></textarea></label>
+<label>Skills (separate with commas)<textarea data-k="skills" rows="2" placeholder="JavaScript, React, Node.js, SQL, Git"></textarea></label>
+<h4>Experience</h4><div id="bexp"></div><button type="button" class="btn ghost small" data-add="exp">+ Add experience</button>
+<h4>Projects</h4><div id="bproj"></div><button type="button" class="btn ghost small" data-add="proj">+ Add project</button>
+<h4>Education</h4><div id="bedu"></div><button type="button" class="btn ghost small" data-add="edu">+ Add education</button>
+<label>Achievements or certifications (one per line)<textarea data-k="extra" rows="3"></textarea></label>
+</div>
+<div class="bprev">
+<div class="bact"><button class="btn" id="bpdf" type="button">Download PDF</button><button class="btn ghost" id="bdoc" type="button">Download Word</button><button class="btn ghost" id="bscore" type="button">Score this resume</button><button class="btn ghost" id="bfill" type="button">Fill with example</button></div>
+<div class="paper rsm" id="bpaper"></div>
 </div>
 </div>
 </section>
@@ -480,7 +595,7 @@ function saveHist(score,f){
 }
 function show(r,raw){
   const {score,bad,warn,ok}=r;
-  window.__last={r,raw};window.__score=score;
+  window.__last={r,raw};window.__score=score;window.__txt=raw;renderRole();
   track("resume-scanned");$("card").innerHTML="";renderJD(raw);
   const f=bad.concat(warn).map(i=>i.t);renderCmp(saveHist(score,f),score,f);
   $("res").style.display="block";
@@ -704,7 +819,7 @@ function buildReport(){
   const d=new Date().toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"});
   const list=(a,t)=>a.length?"<h3>"+t+" ("+a.length+")</h3>"+a.map(i=>"<div class=\"ri\"><b>"+i.t+"</b> · "+i.d+"</div>").join(""):"";
   const bd=Object.entries(r.B).map(([k,[p,mx]])=>"<div class=\"bk\"><span>"+k+"</span><div class=\"bar\"><i style=\"width:"+Math.round(p/mx*100)+"%;background:"+(p/mx>=.8?"#0f9d6b":p/mx>=.5?"#b7791f":"#d6334f")+"\"></i></div><b>"+p+"/"+mx+"</b></div>").join("");
-  $("report").innerHTML="<div class=\"rh\"><div class=\"rl\">My<i>ATS</i></div><div>Resume report · "+d+"</div></div>"
+  $("report").className="";$("report").innerHTML="<div class=\"rh\"><div class=\"rl\">My<i>ATS</i></div><div>Resume report · "+d+"</div></div>"
    +"<div class=\"rs\"><div class=\"rn\" style=\"color:"+col+"\">"+sc+"<small>/100</small></div><div><b style=\"font-size:16px\">"+(sc>=75?"Ready to submit":sc>=50?"Needs a few fixes":"Needs work")+"</b><br>"+r.m.words+" words · "+r.m.verbs+" action verbs found</div></div>"
    +"<h3>Score breakdown</h3>"+bd
    +list(r.bad,"Fix first")+list(r.warn,"Improve")+list(r.ok,"Passed")
@@ -741,6 +856,176 @@ if(!RM){
   });
 }
 
+/* ---------- role keyword packs ---------- */
+const ROLES={
+"Frontend Developer":"HTML|HTML5, CSS|CSS3, JavaScript|JS, TypeScript, React|ReactJS|React.js, Next.js|NextJS, Vue|Vue.js, Angular, Tailwind|Tailwind CSS, Sass|SCSS, Redux, Responsive design|Responsive, Accessibility|a11y|WCAG, REST API|REST APIs|RESTful, Git, Webpack|Vite, Jest|Unit testing|Testing Library, Figma, Web performance|Lighthouse, SEO, Fetch API|AJAX",
+"Backend Developer":"Node.js|NodeJS, Express|Express.js, Python, Java, Spring Boot|Spring, Django|Flask|FastAPI, SQL, MySQL|PostgreSQL|Postgres, MongoDB, Redis, REST API|REST APIs|RESTful, GraphQL, Microservices, Docker, Authentication|JWT|OAuth, Git, Unit testing|JUnit|pytest, Caching, Kafka|RabbitMQ|Message queue, Linux, System design",
+"Full Stack Developer":"JavaScript, TypeScript, React, Node.js, Express, MongoDB, SQL|PostgreSQL|MySQL, REST API|REST APIs, HTML, CSS, Git, Docker, AWS|Azure|GCP, Authentication|JWT, CI/CD|GitHub Actions, Testing|Jest, Agile|Scrum, Next.js, Tailwind, Deployment|Vercel|Netlify",
+"Data Analyst":"SQL, Excel|Spreadsheets, Python, Pandas, NumPy, Power BI|PowerBI, Tableau, Data visualization|Dashboards, Statistics, Data cleaning|Data wrangling, ETL, A/B testing|AB testing, Reporting, Google Sheets|Looker, Regression, KPI|KPIs, Insights|Storytelling, Matplotlib|Seaborn|Plotly, Hypothesis testing, Stakeholders, MySQL|PostgreSQL",
+"Data Scientist / ML Engineer":"Python, Machine learning|ML, Deep learning, TensorFlow, PyTorch, scikit-learn|sklearn, Pandas, NumPy, NLP|Natural language processing, Computer vision|OpenCV, SQL, Statistics, Feature engineering, Model deployment|MLOps, Jupyter, Data visualization, Neural networks|CNN|RNN|Transformers, Hugging Face|HuggingFace, LLM|LLMs|Large language models, Docker, Git, AWS|GCP|Azure",
+"Java Developer":"Java, Spring Boot|Spring, Hibernate|JPA, Maven|Gradle, REST API|REST APIs, Microservices, SQL|MySQL|Oracle, JUnit|Mockito, OOP|Object oriented, Multithreading|Concurrency, Collections, JDBC, Docker, Git, Kafka, Design patterns, Data structures|Algorithms, Jenkins|CI/CD, JSP|Servlets, Agile",
+"Python Developer":"Python, Django|Flask|FastAPI, REST API|REST APIs, SQL|PostgreSQL, SQLAlchemy|ORM, Pandas, NumPy, pytest|unittest, Git, Docker, Linux, OOP|Object oriented, asyncio|Multithreading, Celery|Redis, AWS, Data structures|Algorithms, Automation|Scripting, Web scraping|BeautifulSoup|Selenium, API integration",
+"DevOps / Cloud Engineer":"AWS|Azure|GCP, Linux, Docker, Kubernetes|K8s, CI/CD|Jenkins|GitHub Actions|GitLab CI, Terraform, Ansible, Git, Bash|Shell scripting, Monitoring|Prometheus|Grafana, Networking, Nginx, Python, Infrastructure as code|IaC, Cloud security|IAM, Logging|ELK, Helm, Load balancing, Cost optimization, SRE|Reliability, VPC",
+"Mobile App Developer":"Android|Android Studio, Kotlin, Java, Flutter|Dart, React Native, Swift|iOS|SwiftUI, Firebase, REST API|REST APIs, SQLite|Room, MVVM|MVC, Git, Play Store|App Store, Push notifications, State management|Bloc|Provider|Redux, Material Design|UI design, Retrofit|Dio|Axios, Jetpack Compose|Compose, Testing, CI/CD, Offline|Offline-first",
+"UI/UX Designer":"Figma, User research, Wireframes|Wireframing, Prototyping|Prototype, Design system, Usability testing, User flows|User journey, Information architecture, Adobe XD|Sketch|Illustrator, Accessibility|WCAG, Responsive design, Visual design, Interaction design, Personas, A/B testing, Typography, Color theory|Colour theory, HTML|CSS, Developer handoff|Handoff, Design thinking, Case study|Portfolio, Heuristic evaluation",
+"QA / Software Tester":"Manual testing, Automation testing|Test automation, Selenium, Test cases|Test plans, Jira|Bug tracking|Bugzilla, API testing|Postman, JUnit|TestNG|pytest, Cypress|Playwright, Regression testing, SQL, Agile|Scrum, Performance testing|JMeter, CI/CD, Black box|White box, SDLC|STLC, Defect|Bug report, Mobile testing|Appium, Git, UAT|User acceptance, Smoke testing|Sanity testing, Java|Python"
+};
+const kw=(lo,a)=>new RegExp("(^|[^a-z0-9+#])"+a.trim().toLowerCase().replace(/[.*+?^${}()|[\]\\\/]/g,"\\$&")+"($|[^a-z0-9+#])").test(lo);
+$("role").innerHTML="<option value=\"\">Choose a role…</option>"+Object.keys(ROLES).map(k=>"<option>"+esc(k)+"</option>").join("");
+function renderRole(){
+  const box=$("rolebox"),role=$("role").value;
+  if(!role){box.innerHTML="";return}
+  const src=window.__txt||"";
+  if(!src.trim()){box.innerHTML="<h5>"+esc(role)+"</h5><p style=\"margin:4px 0 0;color:var(--muted);font-size:14px\">Scan a resume at the top, or type in the live editor, then come back here.</p>";return}
+  const lo=src.toLowerCase(),have=[],miss=[];
+  ROLES[role].split(",").forEach(x=>{const alts=x.trim().split("|");(alts.some(a=>kw(lo,a))?have:miss).push(alts[0])});
+  const tot=have.length+miss.length,pct=Math.round(have.length/tot*100);
+  const chips=(a,c)=>a.map(k=>"<span class=\"chip\" style=\"--c:"+c+"\">"+esc(k)+"</span>").join("")||"<span style=\"color:var(--muted)\">None</span>";
+  $("rolebox").innerHTML="<h5>"+esc(role)+": "+pct+"% keyword match ("+have.length+" of "+tot+")</h5><div class=\"bar\"><i style=\"width:"+pct+"%\"></i></div><div><b>In your resume</b><br>"+chips(have,"var(--ok)")+"</div><div style=\"margin-top:10px\"><b>Missing, add only if true</b><br>"+chips(miss,"var(--bad)")+"</div><p class=\"tip-note\">Only add keywords you can back up in an interview.</p>";
+}
+$("role").onchange=renderRole;
+
+/* ---------- compare two resumes ---------- */
+const SAMPLE2=SAMPLE.replace("rohit.sharma@mail.com","rohit.sharma@mail.com | +91 98765 43210 | linkedin.com/in/rohit-sharma").replace("My Learning Journey","Education").replace("Toolbox","Skills").replace("Responsible for fixing bugs and worked on dashboard features for the support team.","Resolved 25 customer-reported bugs and shipped 3 dashboard features for the support team.").replace("Helped with team meetings and was a hard-working team player in a fast paced environment.","Presented weekly sprint demos to 12 stakeholders and gathered feedback for the next release.");
+const CMP={A:null,B:null};
+function cmpSet(side,t,src,name){
+  CMP[side]={r:evaluate(t,src),name};
+  $("cn"+side).textContent=name+" · "+CMP[side].r.score+"/100";
+  renderCmpPair();
+}
+async function cmpFile(side,f){
+  const ext=f.name.split(".").pop().toLowerCase(),lab=$("cn"+side);
+  if(f.size>5*1024*1024){lab.textContent="Over 5 MB. Compress it and try again.";return}
+  lab.textContent="Reading…";
+  try{const x=await extract(f,ext,n=>{lab.textContent="Reading with OCR… "+n+"%"});cmpSet(side,x.t,x.src,f.name)}
+  catch(e){console.error(e);lab.textContent=e&&e.message==="ocr-load"?"OCR could not load. Try a text-based file.":"Could not read this file."}
+}
+$("cfA").onchange=e=>e.target.files[0]&&cmpFile("A",e.target.files[0]);
+$("cfB").onchange=e=>e.target.files[0]&&cmpFile("B",e.target.files[0]);
+$("csample").onclick=()=>{cmpSet("A",SAMPLE,"pdf","sample-before.pdf");cmpSet("B",SAMPLE2,"pdf","sample-after.pdf")};
+function renderCmpPair(){
+  const box=$("cres");
+  if(!(CMP.A&&CMP.B)){box.innerHTML=(CMP.A||CMP.B)?"<p class=\"sub\" style=\"margin-top:14px\">Add the other version to compare.</p>":"";return}
+  const a=CMP.A.r,b=CMP.B.r,d=b.score-a.score,col=d>0?"var(--ok)":d<0?"var(--bad)":"var(--muted)";
+  const fa=a.bad.concat(a.warn).map(i=>i.t),fb=b.bad.concat(b.warn).map(i=>i.t);
+  const chips=(x,c)=>x.length?x.map(t=>"<span class=\"chip\" style=\"--c:"+c+"\">"+esc(t)+"</span>").join(""):"<span style=\"color:var(--muted)\">None</span>";
+  const rows=Object.keys(a.B).map(k=>{
+    const [pa,mx]=a.B[k],pb=b.B[k][0],dd=pb-pa;
+    return "<div class=\"crow\"><span>"+k+"</span><div class=\"bars\"><div class=\"bar b\"><i style=\"width:"+Math.round(pa/mx*100)+"%;background:"+bc(pa/mx)+"\"></i></div><div class=\"bar\"><i style=\"width:"+Math.round(pb/mx*100)+"%;background:"+bc(pb/mx)+"\"></i></div></div><b>"+pa+" → "+pb+(dd?" <em style=\"font-style:normal;color:"+(dd>0?"var(--ok)":"var(--bad)")+"\">("+(dd>0?"+":"")+dd+")</em>":"")+"</b></div>";
+  }).join("");
+  box.innerHTML="<div class=\"cscores\"><div><small>Before</small><span class=\"n\">"+a.score+"</span></div><span class=\"ar\">→</span><div><small>After</small><span class=\"n\">"+b.score+"</span></div><div class=\"d\" style=\"--c:"+col+"\">"+(d>0?"+":"")+d+" points</div></div>"
+   +"<div class=\"blk\"><h5>Score by check</h5><p style=\"margin:0 0 4px;font-size:13px;color:var(--muted)\">Faint bar is before, solid bar is after.</p>"+rows+"</div>"
+   +"<div class=\"blk\"><h5>What changed</h5><div><b>Fixed</b><br>"+chips(fa.filter(t=>!fb.includes(t)),"var(--ok)")+"</div><div style=\"margin-top:10px\"><b>New issues</b><br>"+chips(fb.filter(t=>!fa.includes(t)),"var(--bad)")+"</div><div style=\"margin-top:10px\"><b>Still to fix</b><br>"+chips(fb.filter(t=>fa.includes(t)),"var(--warn)")+"</div><p class=\"tip-note\">Words: "+a.m.words+" → "+b.m.words+" · Action verbs: "+a.m.verbs+" → "+b.m.verbs+"</p></div>";
+}
+
+/* ---------- resume builder ---------- */
+const S=x=>x==null?"":String(x),ea=x=>esc(x).replace(/"/g,"&quot;");
+const LISTS={
+ exp:{box:"bexp",blank:{role:"",org:"",dates:"",bullets:""},f:[["role","Job title"],["org","Company"],["dates","Dates, e.g. Jun 2025 - Aug 2025"],["bullets","One achievement per line. Start with a verb and add a number.","ta"]]},
+ proj:{box:"bproj",blank:{name:"",link:"",bullets:""},f:[["name","Project name"],["link","Link (optional)"],["bullets","One point per line. Start with a verb and add a number.","ta"]]},
+ edu:{box:"bedu",blank:{degree:"",school:"",years:"",score:""},f:[["degree","Degree"],["school","College or school"],["years","Years, e.g. 2024 - 2028"],["score","CGPA or percentage"]]}
+};
+const EXAMPLE={name:"Rohit Sharma",title:"Frontend Developer",email:"rohit.sharma@mail.com",phone:"+91 98765 43210",linkedin:"linkedin.com/in/rohit-sharma",github:"github.com/rohit-sharma",location:"Bengaluru, Karnataka",summary:"Computer science student who builds fast, accessible web apps. Shipped 3 projects used by 500+ classmates.",skills:"JavaScript, React, Node.js, HTML, CSS, SQL, Git, REST APIs",exp:[{role:"Web Development Intern",org:"Pixel Forge Studio",dates:"Dec 2024 - Jan 2025",bullets:"Built 4 responsive landing pages for clients using HTML, CSS and JavaScript\nImproved page load speed by 28% by optimizing images and lazy loading assets"}],proj:[{name:"Campus Event Finder",link:"github.com/rohit-sharma/event-finder",bullets:"Created a web app listing 40 events, used by 500+ students\nBuilt search filters for date, category and location"}],edu:[{degree:"B.E. Computer Science and Engineering",school:"Sunrise Institute of Technology",years:"2024 - 2028",score:"CGPA 8.4"}],extra:"Second place among 60 teams at the college hackathon, 2025\nResponsive Web Design certificate"};
+function blankRB(){return{name:"",title:"",email:"",phone:"",linkedin:"",github:"",location:"",summary:"",skills:"",exp:[{...LISTS.exp.blank}],proj:[{...LISTS.proj.blank}],edu:[{...LISTS.edu.blank}],extra:""}}
+let RB=blankRB();
+try{
+  const sv=JSON.parse(localStorage.getItem("myats-builder")||"null");
+  if(sv&&typeof sv==="object"){
+    const b=blankRB();
+    ["name","title","email","phone","linkedin","github","location","summary","skills","extra"].forEach(k=>b[k]=S(sv[k]));
+    ["exp","proj","edu"].forEach(k=>{if(Array.isArray(sv[k])&&sv[k].length)b[k]=sv[k].map(e=>Object.assign({...LISTS[k].blank},Object.fromEntries(Object.keys(LISTS[k].blank).map(f=>[f,S(e&&e[f])]))))});
+    RB=b;
+  }
+}catch(e){}
+const saveRB=()=>{try{localStorage.setItem("myats-builder",JSON.stringify(RB))}catch(e){}};
+function renderList(k){
+  const L=LISTS[k],arr=RB[k];
+  $(L.box).innerHTML=arr.map((e,i)=>"<div class=\"entry\">"+L.f.map(([f,ph,ta])=>ta
+    ?"<textarea rows=\"3\" data-kind=\""+k+"\" data-i=\""+i+"\" data-f=\""+f+"\" placeholder=\""+ea(ph)+"\" aria-label=\""+ea(ph)+"\">"+esc(e[f])+"</textarea>"
+    :"<input data-kind=\""+k+"\" data-i=\""+i+"\" data-f=\""+f+"\" placeholder=\""+ea(ph)+"\" aria-label=\""+ea(ph)+"\" value=\""+ea(e[f])+"\">").join("")
+    +(arr.length>1?"<button type=\"button\" class=\"rm\" data-rm=\""+k+"\" data-i=\""+i+"\">Remove</button>":"")+"</div>").join("");
+}
+function loadForm(){
+  document.querySelectorAll("#builder [data-k]").forEach(el=>{el.value=RB[el.dataset.k]});
+  ["exp","proj","edu"].forEach(renderList);
+}
+const bl=t=>S(t).split("\n").map(x=>x.replace(/^[\s•\-*–]+/,"").trim()).filter(Boolean);
+const anyv=o=>Object.values(o).some(v=>S(v).trim());
+const skl=d=>S(d.skills).split(/[,\n]/).map(x=>x.trim()).filter(Boolean);
+const cont=d=>[d.email,d.phone,d.linkedin,d.github,d.location].map(x=>S(x).trim()).filter(Boolean);
+function resumeHTML(d){
+  const li=a=>a.length?"<ul>"+a.map(x=>"<li>"+esc(x)+"</li>").join("")+"</ul>":"";
+  const join=(a,b)=>[a,b].map(x=>S(x).trim()).filter(Boolean).join(", ");
+  let h="";
+  if(S(d.name).trim())h+="<h1>"+esc(d.name.trim())+"</h1>";
+  if(S(d.title).trim())h+="<div class=\"rt\">"+esc(d.title.trim())+"</div>";
+  if(cont(d).length)h+="<div class=\"rc\">"+cont(d).map(esc).join(" | ")+"</div>";
+  if(S(d.summary).trim())h+="<h2>Summary</h2><p>"+esc(d.summary.trim())+"</p>";
+  if(skl(d).length)h+="<h2>Skills</h2><p>"+skl(d).map(esc).join(", ")+"</p>";
+  const ex=d.exp.filter(anyv);
+  if(ex.length)h+="<h2>Experience</h2>"+ex.map(e=>"<div class=\"rrow\"><b>"+esc(join(e.role,e.org))+"</b><span>"+esc(e.dates)+"</span></div>"+li(bl(e.bullets))).join("");
+  const pr=d.proj.filter(anyv);
+  if(pr.length)h+="<h2>Projects</h2>"+pr.map(e=>"<div class=\"rrow\"><b>"+esc(e.name)+"</b><span>"+esc(e.link)+"</span></div>"+li(bl(e.bullets))).join("");
+  const ed=d.edu.filter(anyv);
+  if(ed.length)h+="<h2>Education</h2>"+ed.map(e=>"<div class=\"rrow\"><b>"+esc(join(e.degree,e.school))+"</b><span>"+esc(e.years)+"</span></div>"+(S(e.score).trim()?"<div>"+esc(e.score)+"</div>":"")).join("");
+  if(bl(d.extra).length)h+="<h2>Achievements</h2>"+li(bl(d.extra));
+  return h;
+}
+function resumeText(d){
+  const L=[],join=(a,b)=>[a,b].map(x=>S(x).trim()).filter(Boolean).join(", ");
+  if(S(d.name).trim())L.push(d.name.trim());
+  if(cont(d).length)L.push(cont(d).join(" | "));
+  if(S(d.title).trim())L.push(d.title.trim());
+  if(S(d.summary).trim())L.push("Summary",d.summary.trim());
+  if(skl(d).length)L.push("Skills",skl(d).join(", "));
+  const ex=d.exp.filter(anyv);
+  if(ex.length){L.push("Experience");ex.forEach(e=>{L.push(join(e.role,e.org)+(S(e.dates).trim()?" ("+e.dates.trim()+")":""));bl(e.bullets).forEach(x=>L.push(x))})}
+  const pr=d.proj.filter(anyv);
+  if(pr.length){L.push("Projects");pr.forEach(e=>{L.push(S(e.name).trim());bl(e.bullets).forEach(x=>L.push(x))})}
+  const ed=d.edu.filter(anyv);
+  if(ed.length){L.push("Education");ed.forEach(e=>L.push(join(e.degree,e.school)+(S(e.years).trim()?" ("+e.years.trim()+")":"")+(S(e.score).trim()?", "+e.score.trim():"")))}
+  if(bl(d.extra).length){L.push("Achievements");bl(d.extra).forEach(x=>L.push(x))}
+  return L.join("\n");
+}
+const paintB=()=>{$("bpaper").innerHTML=resumeHTML(RB)||"<p class=\"muted\">Your resume preview appears here as you type.</p>"};
+const bname=()=>(S(RB.name).trim()||"Resume").replace(/[^\w]+/g,"-");
+$("builder").addEventListener("input",e=>{
+  const t=e.target;
+  if(t.dataset.k)RB[t.dataset.k]=t.value;
+  else if(t.dataset.kind&&RB[t.dataset.kind]&&RB[t.dataset.kind][+t.dataset.i])RB[t.dataset.kind][+t.dataset.i][t.dataset.f]=t.value;
+  else return;
+  saveRB();paintB();
+});
+$("builder").addEventListener("click",e=>{
+  const t=e.target.closest("button");if(!t)return;
+  if(t.dataset.add){RB[t.dataset.add].push({...LISTS[t.dataset.add].blank});renderList(t.dataset.add);paintB();saveRB()}
+  else if(t.dataset.rm){RB[t.dataset.rm].splice(+t.dataset.i,1);renderList(t.dataset.rm);paintB();saveRB()}
+});
+$("bpdf").onclick=()=>{
+  const h=resumeHTML(RB);if(!h)return alert("Fill in a few details first.");
+  const r=$("report"),t=document.title;r.className="rsm";r.innerHTML=h;document.title=bname()+"-Resume";
+  window.print();setTimeout(()=>{document.title=t;r.className=""},800);
+};
+$("bdoc").onclick=()=>{
+  const h=resumeHTML(RB);if(!h)return alert("Fill in a few details first.");
+  const doc="<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Resume</title><style>body{font-family:Arial,sans-serif;font-size:10.5pt}h1{font-size:20pt;margin:0}h2{font-size:11pt;text-transform:uppercase;border-bottom:1px solid #000;margin:12pt 0 4pt}ul{margin:2pt 0}.rt{font-size:11pt}.rc{font-size:9.5pt}</style></head><body>"+h+"</body></html>";
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["﻿",doc],{type:"application/msword"}));a.download=bname()+"-Resume.doc";
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+};
+$("bscore").onclick=()=>{
+  const t=resumeText(RB);if(!t.trim())return alert("Fill in a few details first.");
+  $("lt").value=t;$("lt").dispatchEvent(new Event("input"));$("live").scrollIntoView({behavior:"smooth"});
+};
+$("bfill").onclick=()=>{RB=JSON.parse(JSON.stringify(EXAMPLE));saveRB();loadForm();paintB()};
+loadForm();paintB();
+
+/* ---------- install as app + offline ---------- */
+let dip=null;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();dip=e;$("inst").hidden=false});
+addEventListener("appinstalled",()=>{$("inst").hidden=true});
+$("inst").onclick=async()=>{if(!dip)return;dip.prompt();try{await dip.userChoice}catch(e){}dip=null;$("inst").hidden=true};
+if("serviceWorker" in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register("sw.js").catch(()=>{});
+
 /* ---------- live editor ---------- */
 (function(){
   const lt=$("lt"),ljd=$("ljd");let timer=null;
@@ -749,7 +1034,7 @@ if(!RM){
     $("wcn").textContent=w+(w===1?" word":" words");
     $("wdot").style.left=Math.min(w/1800,1)*100+"%";
     $("wcp").textContent=!w?"Aim for 300 to 1,500 words, about 1 to 2 pages.":w<300?(300-w)+" more words to reach the sweet spot.":w>1500?(w-1500)+" words over. Trim older entries.":"In the sweet spot, about "+(w/500).toFixed(1)+" pages.";
-    $("lj").innerHTML=jdHTML(ljd.value.trim(),t);
+    $("lj").innerHTML=jdHTML(ljd.value.trim(),t);window.__txt=has?t:(window.__last?window.__last.raw:"");renderRole();
     const arc=$("larc");
     if(!has){
       arc.style.strokeDashoffset=314;$("lsc").textContent="0";$("lv").textContent="Start typing";$("lvs").textContent="Your live score appears here.";

@@ -15,3 +15,6 @@ Single `index.html` (vanilla JS, no build step).
 2. Convert to Vite + React + Tailwind with the same features and look.
 3. Add before/after comparison of two resumes.
 4. Deploy cleanly on Vercel.
+
+## Latest additions
+Role keyword packs, compare two resumes, ATS-friendly resume builder (PDF and Word), share preview, installable and offline (service worker), automated tests with GitHub Actions, README with screenshots.

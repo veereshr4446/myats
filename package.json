@@ -1,0 +1,10 @@
+{
+  "name": "myats",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Free, private, browser-based resume ATS checker",
+  "scripts": {
+    "test": "node --test tests/engine.test.js"
+  },
+  "license": "MIT"
+}

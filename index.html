@@ -268,7 +268,7 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 <label class="drop" id="drop" tabindex="0">
 <div class="ic">⤒</div>
 <div><b>Drop your resume here</b><span>PDF, DOCX, or a photo or scan of your resume, up to 5 MB. Or tap to browse.</span></div>
-<input type="file" id="file" accept=".pdf,.docx,.doc,.png,.jpg,.jpeg,.webp" hidden>
+<input type="file" id="file" accept=".pdf,.docx,.png,.jpg,.jpeg,.webp" hidden>
 </label>
 <div class="privacy">Your file is read inside your browser and never uploaded. Photos and scans are read with OCR, which downloads language data once and can take 10 to 30 seconds.</div>
 <button class="sample" id="sample" type="button">No resume handy? Try a sample.</button>
@@ -539,6 +539,8 @@ async function scan(t,ext,name){
 }
 async function handle(f){
   const name=f.name,ext=name.split(".").pop().toLowerCase();
+  if(ext==="doc")return alert("Old .doc files can’t be read. Open it in Word, choose Save As, and save it as .docx or PDF, then try again.");
+  if(!["pdf","docx",...IMGEXT].includes(ext))return alert("Please upload a PDF, a DOCX file, or a photo of your resume.");
   if(f.size>5*1024*1024)return alert("This file is over 5 MB. Compress it and try again.");
   $("sheet").classList.add("scanning");
   let t="",src=ext;
@@ -895,6 +897,7 @@ function cmpSet(side,t,src,name){
 }
 async function cmpFile(side,f){
   const ext=f.name.split(".").pop().toLowerCase(),lab=$("cn"+side);
+  if(!["pdf","docx",...IMGEXT].includes(ext)){lab.textContent=ext==="doc"?"Old .doc files can’t be read. Save as .docx or PDF.":"Use a PDF, DOCX or image.";return}
   if(f.size>5*1024*1024){lab.textContent="Over 5 MB. Compress it and try again.";return}
   lab.textContent="Reading…";
   try{const x=await extract(f,ext,n=>{lab.textContent="Reading with OCR… "+n+"%"});cmpSet(side,x.t,x.src,f.name)}

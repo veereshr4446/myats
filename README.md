@@ -11,6 +11,9 @@ A free resume checker that runs entirely in the browser. No backend, no uploads.
 - Light theme by default, dark theme on toggle
 - Hero: rotating sample resumes with scan ticks, floating badges, tilt that follows the pointer, typing headline
 - Results: count-up score, confetti at 75+, robot-view highlights, fix checklist, comparison with your last scan
+- Live editor: type or paste text and the score, breakdown, word counter and job match update instantly
+- Score breakdown bars, section heat map, bullet rewrite tips, robot-reading log while scanning
+- Branded PDF report (Download PDF report)
 - Built-in sample resume to try without a file
 
 ## Run

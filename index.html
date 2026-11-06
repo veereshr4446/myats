@@ -134,7 +134,55 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 .stats div{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 8px}
 .stats b{display:block;font:800 clamp(28px,4vw,40px)/1.1 "Plus Jakarta Sans",sans-serif;letter-spacing:-.02em;color:var(--acc)}
 .stats span{font-size:14px;color:var(--muted)}
-@media print{.logos,.bgfx,nav,.hero,.why,footer,#again,#print,#hist,.tabs{display:none!important}body{background:#fff}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+.term{margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font:13px/1.7 ui-monospace,Menlo,monospace}
+.tl{animation:tin .25s ease-out}
+.tl::before{content:"› ";color:var(--acc)}
+.tl.ok{color:var(--ok)}.tl.warn{color:var(--warn)}.tl.bad{color:var(--bad)}
+@keyframes tin{from{opacity:0;transform:translateX(-6px)}}
+.blk{margin-top:18px}
+.blk:not(:empty){padding:16px;border:1px solid var(--line);border-radius:14px}
+.blk h5{margin:0 0 4px;font:800 18px "Plus Jakarta Sans",sans-serif}
+.bk{display:grid;grid-template-columns:76px 1fr 46px;gap:10px;align-items:center;font-size:14px;margin:7px 0}
+.bk b{text-align:right;font-weight:600}
+.bk .bar{margin:0}.bar i{transition:width .8s cubic-bezier(.2,.8,.2,1),background .3s}
+.hmstrip{display:flex;gap:3px;margin:8px 0 10px;border-radius:10px;overflow:hidden}
+.seg{flex:var(--f,1);min-width:46px;background:var(--c);color:var(--acc-ink);font:700 11px "Inter",sans-serif;padding:8px 6px;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.hmrow{display:flex;gap:8px;align-items:baseline;font-size:14px;margin:4px 0}
+.hmrow i{width:10px;height:10px;border-radius:50%;background:var(--c);flex:none;align-self:center}
+.hmrow span{color:var(--muted)}
+.tip{padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+.tip:first-of-type{border-top:0}
+.tip .o{color:var(--bad);text-decoration:line-through;text-decoration-color:rgba(214,51,79,.5)}
+.tip .s{color:var(--ok);font-weight:600;margin-top:3px}
+.tip span{display:block;color:var(--muted);font-size:13px;margin-top:3px}
+.live{border-top:1px solid var(--line);padding:46px 0 30px}
+.live h2{font:800 clamp(26px,4vw,38px)/1.1 "Plus Jakarta Sans",sans-serif;letter-spacing:-.03em;margin:0 0 6px}
+.live .sub{color:var(--muted);margin:0 0 22px}
+.lgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+@media(max-width:860px){.lgrid{grid-template-columns:1fr}}
+.live textarea{width:100%;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:14px;font:15px/1.55 "Inter",sans-serif;resize:vertical;min-height:300px}
+.lrow{display:flex;gap:10px;margin:10px 0}.lrow .btn{width:auto;padding:8px 16px;margin-top:0}
+.wc{margin:14px 0 6px}
+.wcbar{position:relative;height:10px;border-radius:5px;background:var(--line)}
+.zone{position:absolute;left:16.67%;width:66.67%;top:0;bottom:0;background:rgba(16,185,129,.35)}
+.wdot{position:absolute;top:-4px;left:0;width:18px;height:18px;border-radius:50%;background:var(--acc);border:3px solid var(--surface);transform:translateX(-50%);transition:left .25s}
+.wcl{display:flex;justify-content:space-between;gap:12px;font-size:14px;margin-top:10px;color:var(--muted)}.wcl b{color:var(--ink);white-space:nowrap}
+.lpanel{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;align-self:start}
+.lring{display:flex;align-items:center;gap:18px;margin-bottom:10px}
+.ring2{position:relative;width:120px;flex:none}.ring2 svg{transform:rotate(-90deg);display:block}
+.ring2 .n{position:absolute;inset:0;display:grid;place-items:center;font:800 34px "Plus Jakarta Sans",sans-serif}
+.lring b{display:block;font:800 20px "Plus Jakarta Sans",sans-serif}.lring span{color:var(--muted);font-size:14px}
+#report{display:none;--bg:#fff;--surface:#fff;--ink:#14122b;--muted:#5d5a7a;--line:#d9d6ee;--acc:#5b3df5;--acc-ink:#fff;--ok:#0f9d6b;--warn:#b7791f;--bad:#d6334f;color:var(--ink);background:#fff;font:400 13px/1.5 "Inter",system-ui,sans-serif}
+#report .rh{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--acc);padding-bottom:10px;margin-bottom:16px}
+#report .rl{font:800 26px "Plus Jakarta Sans",sans-serif}#report .rl i{font-style:normal;color:var(--acc)}
+#report .rs{display:flex;gap:20px;align-items:center;margin-bottom:10px}
+#report .rn{font:800 54px/1 "Plus Jakarta Sans",sans-serif}#report .rn small{font:400 16px "Inter",sans-serif;color:var(--muted)}
+#report h3{font:800 15px "Plus Jakarta Sans",sans-serif;margin:16px 0 6px;color:var(--acc)}
+#report .ri{padding:3px 0;border-bottom:1px solid var(--line);break-inside:avoid}
+#report .rf{margin-top:22px;padding-top:10px;border-top:1px solid var(--line);color:var(--muted);font-size:11px}
+#report .bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden}#report .bar i{display:block;height:100%}
+#report .bk{grid-template-columns:90px 1fr 50px}
+@media print{.wrap,.bgfx{display:none!important}body::before{display:none}#report{display:block}body{background:#fff}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}@page{margin:14mm}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.tag,.mk{opacity:1}.mq{display:block;-webkit-mask-image:none;mask-image:none}.track{flex-wrap:wrap;justify-content:center;animation:none}.track[aria-hidden]{display:none}}
 </style>
 </head>
@@ -155,6 +203,7 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 <div class="privacy">Your file is read inside your browser and never uploaded.</div>
 <button class="sample" id="sample" type="button">No resume handy? Try a sample.</button>
 <details class="jdbox"><summary>Match against a job description (optional)</summary><textarea id="jdtext" rows="5" placeholder="Paste the job posting here before you drop your resume"></textarea></details>
+<div class="term" id="term" hidden aria-live="polite"></div>
 </div>
 <div class="stage">
 <span class="fb b1"><i>✓</i>Email found</span>
@@ -180,16 +229,39 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 <div class="ring"><svg width="176" height="176" viewBox="0 0 176 176"><circle cx="88" cy="88" r="74" fill="none" stroke="var(--line)" stroke-width="12"/><circle id="arc" cx="88" cy="88" r="74" fill="none" stroke="var(--acc)" stroke-width="12" stroke-linecap="round" stroke-dasharray="465" stroke-dashoffset="465" style="transition:stroke-dashoffset 1.3s cubic-bezier(.2,.8,.2,1)"/></svg><div class="n"><div><span id="score">0</span><small>out of 100</small></div></div></div>
 <div class="verdict" id="verdict"></div>
 <button class="btn" id="again">Check another resume</button>
-<button class="btn ghost" id="print">Save report as PDF</button>
+<button class="btn ghost" id="print">Download PDF report</button>
 <button class="btn ghost" id="cardbtn">Create share card</button>
 <div id="card"></div>
 <div id="hist"></div>
 <div id="cmp"></div>
 </div>
-<div><div class="tabs" id="tabs" role="tablist"></div><div id="pg"></div><div id="list"></div>
+<div><div class="blk" style="margin-top:0"><h5>Score breakdown</h5><div id="bd"></div></div><div id="hm" class="blk"></div><div class="tabs" id="tabs" role="tablist" style="margin-top:18px"></div><div id="pg"></div><div id="list"></div>
 <div id="jd"></div>
+<div id="tips" class="blk"></div>
 <div class="parser"><h5>What the robot read</h5><p class="lg"><mark class="g">action verb</mark><mark class="n">number</mark><mark class="r">weak phrase</mark></p><span id="raw"></span></div></div>
 </div></div></section>
+
+<section class="live" id="live">
+<h2>Live editor</h2>
+<p class="sub">Type or paste your resume text. The score, checks and keyword match update as you write.</p>
+<div class="lgrid">
+<div>
+<textarea id="lt" rows="14" placeholder="Paste your resume text here…" aria-label="Resume text"></textarea>
+<div class="lrow"><button class="btn ghost" id="lsample" type="button">Paste sample</button><button class="btn ghost" id="lclear" type="button">Clear</button></div>
+<div class="wc"><div class="wcbar"><div class="zone"></div><div class="wdot" id="wdot"></div></div>
+<div class="wcl"><b id="wcn">0 words</b><span id="wcp">Aim for 300 to 1,500 words, about 1 to 2 pages.</span></div></div>
+<details class="jdbox"><summary>Match against a job description</summary><textarea id="ljd" rows="5" placeholder="Paste the job posting here"></textarea></details>
+<div id="lj" class="blk"></div>
+</div>
+<div class="lpanel">
+<div class="lring"><div class="ring2"><svg width="120" height="120" viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" fill="none" stroke="var(--line)" stroke-width="11"/><circle id="larc" cx="60" cy="60" r="50" fill="none" stroke="var(--acc)" stroke-width="11" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314" style="transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1),stroke .3s"/></svg><div class="n" id="lsc">0</div></div>
+<div><b id="lv">Start typing</b><span id="lvs">Your live score appears here.</span></div></div>
+<div id="lbd"></div>
+<div id="lis"></div>
+<div id="ltips" class="blk"></div>
+</div>
+</div>
+</section>
 
 <section class="logos" aria-label="Companies">
 <p class="lgt">Built for people applying to companies like</p>
@@ -210,6 +282,7 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 </footer>
 </div>
 
+<div id="report" aria-hidden="true"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 <script>
@@ -228,46 +301,94 @@ drop.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fin.click
 ["dragover","dragenter"].forEach(e=>drop.addEventListener(e,ev=>{ev.preventDefault();drop.classList.add("over")}));
 ["dragleave","drop"].forEach(e=>drop.addEventListener(e,ev=>{ev.preventDefault();drop.classList.remove("over")}));
 drop.addEventListener("drop",ev=>ev.dataTransfer.files[0]&&handle(ev.dataTransfer.files[0]));
-$("print").onclick=()=>window.print();
+$("print").onclick=()=>{if(!buildReport())return;const t=document.title;document.title="MyATS-report-"+window.__last.r.score;window.print();setTimeout(()=>{document.title=t},800)};
 $("cardbtn").onclick=()=>makeCard();
 $("again").onclick=()=>{$("res").style.display="none";fin.value="";$("hero").scrollIntoView()};
 
+const esc=x=>String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const bc=x=>x>=.8?"var(--ok)":x>=.5?"var(--warn)":"var(--bad)";
 async function extract(f,ext){
   const buf=await f.arrayBuffer();
-  if(ext==="pdf"){const pdf=await pdfjsLib.getDocument({data:buf}).promise;let t="";for(let i=1;i<=pdf.numPages;i++){const c=await(await pdf.getPage(i)).getTextContent();t+=c.items.map(x=>x.str).join(" ")+"\n"}return t}
+  if(ext==="pdf"){
+    const pdf=await pdfjsLib.getDocument({data:buf}).promise;let t="";
+    for(let i=1;i<=pdf.numPages;i++){
+      const c=await(await pdf.getPage(i)).getTextContent();let ly=null;
+      for(const it of c.items){
+        if(typeof it.str!=="string")continue;
+        const y=it.transform?it.transform[5]:0;
+        if(ly!==null&&Math.abs(y-ly)>3)t+="\n";else if(t&&!/[\n ]$/.test(t))t+=" ";
+        t+=it.str;ly=y;
+      }
+      t+="\n";
+    }
+    return t;
+  }
   if(ext==="docx")return(await mammoth.extractRawText({arrayBuffer:buf})).value;
   return"";
 }
+function evaluate(text,ext){
+  const bad=[],warn=[],ok=[],add=(a,t,d)=>a.push({t,d});
+  const B={Format:[0,15],Length:[0,20],Verbs:[0,25],Contact:[0,20],Headings:[0,20]};
+  const m={words:0,verbs:0,email:false,phone:false,linkedin:false,heads:{}};
+  const done=()=>({score:Math.min(100,Object.values(B).reduce((a,x)=>a+x[0],0)),bad,warn,ok,B,m});
+  if(ext==="pdf"||ext==="docx"){B.Format[0]=15;add(ok,"File format","."+ext+" files are read reliably by most systems.")}
+  else if(ext==="txt"){B.Format[0]=15;add(ok,"Plain text","Typed text is always readable.")}
+  else if(ext==="doc"){B.Format[0]=5;add(warn,"Older Word format","Save as PDF or DOCX so every system can read it.")}
+  else add(bad,"Image file","Screening software can’t read text inside images. Upload a text-based PDF.");
+  if(!text.trim()){add(bad,"No readable text","Nothing could be extracted. If your PDF is a scan, export it again from your editor.");return done()}
+  const w=text.trim().split(/\s+/).length;m.words=w;
+  if(w<300)add(bad,"Too short","Only "+w+" words. Aim for 300 to 1,500.");
+  else if(w>1500){B.Length[0]=10;add(warn,"Too long","About "+w+" words, likely past two pages. Trim older or weaker entries.")}
+  else{B.Length[0]=20;add(ok,"Length","A good "+w+" words.")}
+  const lo=text.toLowerCase(),found=VERBS.filter(v=>new RegExp("\\b"+v+"\\b").test(lo)),miss=VERBS.filter(v=>!found.includes(v)).slice(0,8);
+  m.verbs=found.length;
+  if(found.length>=10){B.Verbs[0]=25;add(ok,"Action verbs",found.length+" strong verbs found.")}
+  else{B.Verbs[0]=Math.round(found.length*2.5);add(found.length>=5?warn:bad,"Weak action verbs","Found "+found.length+". Start bullet points with words like "+miss.join(", ")+".")}
+  [["Email","email",/[\w.+-]+@[\w-]+\.[\w.]+/,7],["Phone number","phone",/\+?\d[\d\s().-]{8,}\d/,7],["LinkedIn URL","linkedin",/linkedin\.com\/in\/[\w-]+/i,6]].forEach(([n,k,re,p])=>{
+    if(re.test(text)){m[k]=true;B.Contact[0]+=p;add(ok,n,"Found.")}else add(n==="LinkedIn URL"?warn:bad,n+" missing","Add it to the top of your resume.")});
+  Object.entries(HEADERS).forEach(([n,re])=>{
+    if(re.test(text)){m.heads[n]=true;B.Headings[0]+=5;add(ok,n+" heading","Standard heading found.")}
+    else{m.heads[n]=false;add(n==="Projects"?warn:bad,n+" heading missing","Use a plain heading such as “"+n+"”. Creative names confuse older systems.")}});
+  const segs=text.split(/[•●▪◦]|\n/).filter(x=>x.trim().split(/\s+/).length>=6);
+  if(segs.length>=3){const nums=segs.filter(x=>/\d/.test(x)).length;if(nums/segs.length<.3)add(warn,"Few measurable results","Only "+nums+" of "+segs.length+" lines include a number. Add figures like %, users, time saved or revenue.");else add(ok,"Measurable results",nums+" lines include numbers.")}
+  const bz=[...new Set((text.match(new RegExp(BUZZ.source,"gi"))||[]).map(x=>x.toLowerCase()))];
+  if(bz.length)add(warn,"Weak phrases and buzzwords","Replace: "+bz.slice(0,6).join(", ")+". Show the result instead.");else add(ok,"Clear wording","No common buzzwords found.");
+  return done();
+}
+function buildLog(r,name){
+  const m=r.m,L=[["Reading "+name,"ok"]];
+  if(!m.words){L.push(["No readable text found","bad"])}
+  else{
+    L.push(["Extracting text: "+m.words+" words","ok"]);
+    const cc=[m.email,m.phone,m.linkedin].filter(Boolean).length,y=v=>v?"✓":"✗";
+    L.push(["Contact: email "+y(m.email)+"  phone "+y(m.phone)+"  linkedin "+y(m.linkedin),cc===3?"ok":cc===2?"warn":"bad"]);
+    const hs=Object.entries(m.heads),hc=hs.filter(x=>x[1]).length;
+    L.push(["Headings: "+hs.map(([k,v])=>k+" "+y(v)).join("  "),hc===4?"ok":hc>=3?"warn":"bad"]);
+    L.push(["Action verbs: "+m.verbs+" found",m.verbs>=10?"ok":m.verbs>=5?"warn":"bad"]);
+    L.push(["Length: "+(m.words<300?"too short":m.words>1500?"too long":"good"),m.words<300?"bad":m.words>1500?"warn":"ok"]);
+  }
+  L.push(["Scoring… "+r.score+"/100",r.score>=75?"ok":r.score>=50?"warn":"bad"]);
+  return L;
+}
+async function runLog(lines){
+  const box=$("term");box.hidden=false;box.innerHTML="";
+  for(const [t,c] of lines){const d=document.createElement("div");d.className="tl "+c;d.textContent=t;box.appendChild(d);if(!RM)await new Promise(r=>setTimeout(r,320))}
+  if(!RM)await new Promise(r=>setTimeout(r,550));
+  box.hidden=true;
+}
+async function scan(t,ext,name){
+  $("sheet").classList.add("scanning");
+  const r=evaluate(t,ext);
+  await runLog(buildLog(r,name));
+  $("sheet").classList.remove("scanning");
+  show(r,t);
+}
 async function handle(f){
-  window.__fn=f.name;const ext=f.name.split(".").pop().toLowerCase();
+  const ext=f.name.split(".").pop().toLowerCase();
   if(f.size>5*1024*1024)return alert("This file is over 5 MB. Compress it and try again.");
   $("sheet").classList.add("scanning");
   let t="";try{t=await extract(f,ext)}catch(e){console.error(e)}
-  await new Promise(r=>setTimeout(r,1800));
-  $("sheet").classList.remove("scanning");
-  analyze(t,ext);
-}
-function analyze(text,ext){
-  const bad=[],warn=[],ok=[];let s=0;const add=(a,t,d)=>a.push({t,d});
-  if(ext==="pdf"||ext==="docx"){s+=15;add(ok,"File format","."+ext+" files are read reliably by most systems.")}
-  else if(ext==="doc"){s+=5;add(warn,"Older Word format","Save as PDF or DOCX so every system can read it.")}
-  else add(bad,"Image file","Screening software can’t read text inside images. Upload a text-based PDF.");
-  if(!text.trim()){add(bad,"No readable text","Nothing could be extracted. If your PDF is a scan, export it again from your editor.");return show(s,bad,warn,ok,"")}
-  const w=text.trim().split(/\s+/).length;
-  if(w<300)add(bad,"Too short","Only "+w+" words. Aim for 300 to 1,500.");
-  else if(w>1500){s+=10;add(warn,"Too long","About "+w+" words, likely past two pages. Trim older or weaker entries.")}
-  else{s+=20;add(ok,"Length","A good "+w+" words.")}
-  const lo=text.toLowerCase(),found=VERBS.filter(v=>new RegExp("\\b"+v+"\\b").test(lo)),miss=VERBS.filter(v=>!found.includes(v)).slice(0,8);
-  if(found.length>=10){s+=25;add(ok,"Action verbs",found.length+" strong verbs found.")}
-  else{s+=Math.round(found.length*2.5);add(found.length>=5?warn:bad,"Weak action verbs","Found "+found.length+". Start bullet points with words like "+miss.join(", ")+".")}
-  [["Email",/[\w.+-]+@[\w-]+\.[\w.]+/,7],["Phone number",/\+?\d[\d\s().-]{8,}\d/,7],["LinkedIn URL",/linkedin\.com\/in\/[\w-]+/i,6]].forEach(([n,re,p])=>{
-    if(re.test(text)){s+=p;add(ok,n,"Found.")}else add(n==="LinkedIn URL"?warn:bad,n+" missing","Add it to the top of your resume.")});
-  Object.entries(HEADERS).forEach(([n,re])=>{if(re.test(text)){s+=5;add(ok,n+" heading","Standard heading found.")}else add(n==="Projects"?warn:bad,n+" heading missing","Use a plain heading such as “"+n+"”. Creative names confuse older systems.")});
-  const segs=text.split(/[•●▪◦]|\n/).filter(x=>x.trim().split(/\s+/).length>=6);
-  if(segs.length>=3){const nums=segs.filter(x=>/\d/.test(x)).length;if(nums/segs.length<.3)add(warn,"Few measurable results","Only "+nums+" of "+segs.length+" lines include a number. Add figures like %, users, time saved or revenue.");else add(ok,"Measurable results",nums+" lines include numbers.")}
-  const bz=[...new Set((text.match(/responsible for|worked on|helped with|duties included|team player|hard[- ]?working|detail[- ]oriented|self[- ]motivated|go-getter|synergy|results[- ]driven|passionate/gi)||[]).map(x=>x.toLowerCase()))];
-  if(bz.length)add(warn,"Weak phrases and buzzwords","Replace: "+bz.slice(0,6).join(", ")+". Show the result instead.");else add(ok,"Clear wording","No common buzzwords found.");
-  show(Math.min(s,100),bad,warn,ok,text);
+  await scan(t,ext,f.name);
 }
 const STOP=new Set("the and for with that this are you our will have from your not but all can has their who they about into more other than also such use using work working team ability strong experience years skills knowledge required preferred must should able looking join role candidate responsibilities including etc well new one any may its been were what when where which while within across both each per via".split(" "));
 function makeCard(){
@@ -288,24 +409,27 @@ function makeCard(){
   $("card").innerHTML="<img alt=\"Your score card\" src=\""+url+"\"><p>Press and hold the image to save it.</p>";
   c.toBlob(b=>{try{const f=new File([b],"myats-score.png",{type:"image/png"});if(navigator.canShare&&navigator.canShare({files:[f]}))navigator.share({files:[f],title:"My ATS score"}).catch(()=>{})}catch(e){}});
 }
-function renderJD(raw){
-  const jd=$("jdtext").value.trim(),box=$("jd");
-  if(jd.length<40||!raw){box.innerHTML="";return}
+function jdHTML(jd,raw){
+  if(jd.length<40||!raw)return"";
   const cnt={};(jd.toLowerCase().match(/[a-z][a-z+#.]{2,}/g)||[]).forEach(w=>{w=w.replace(/\.+$/,"");if(w.length>2&&!STOP.has(w))cnt[w]=(cnt[w]||0)+1});
   const keys=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,25).map(x=>x[0]);
-  if(!keys.length){box.innerHTML="";return}
+  if(!keys.length)return"";
   const lo=raw.toLowerCase(),have=keys.filter(k=>lo.includes(k)),miss=keys.filter(k=>!have.includes(k)),pct=Math.round(have.length/keys.length*100);
-  const chips=(a,c)=>a.map(k=>"<span class=\"chip\" style=\"--c:"+c+"\">"+k+"</span>").join("")||"<span style=\"color:var(--muted)\">None</span>";
-  box.innerHTML="<h5>Job match: "+pct+"%</h5><div class=\"bar\"><i style=\"width:"+pct+"%\"></i></div><div><b>In your resume</b><br>"+chips(have,"var(--ok)")+"</div><div style=\"margin-top:10px\"><b>Missing, add if true</b><br>"+chips(miss,"var(--bad)")+"</div>";
+  const chips=(a,c)=>a.map(k=>"<span class=\"chip\" style=\"--c:"+c+"\">"+esc(k)+"</span>").join("")||"<span style=\"color:var(--muted)\">None</span>";
+  return "<h5>Job match: "+pct+"%</h5><div class=\"bar\"><i style=\"width:"+pct+"%\"></i></div><div><b>In your resume</b><br>"+chips(have,"var(--ok)")+"</div><div style=\"margin-top:10px\"><b>Missing, add if true</b><br>"+chips(miss,"var(--bad)")+"</div>";
 }
+function renderJD(raw){$("jd").innerHTML=jdHTML($("jdtext").value.trim(),raw)}
 function saveHist(score,f){
   let last=null;
   try{const h=JSON.parse(localStorage.getItem("myats-hist")||"[]");last=h.length?h[h.length-1]:null;h.push({s:score,f});localStorage.setItem("myats-hist",JSON.stringify(h.slice(-8)));
   $("hist").textContent=h.length>1?"All scans: "+h.slice(-8).map(x=>x.s).join(" → "):""}catch(e){$("hist").textContent=""}
   return last;
 }
-function show(score,bad,warn,ok,raw){
-  track("resume-scanned");window.__score=score;$("card").innerHTML="";renderJD(raw);const f=bad.concat(warn).map(i=>i.t);renderCmp(saveHist(score,f),score,f);
+function show(r,raw){
+  const {score,bad,warn,ok}=r;
+  window.__last={r,raw};window.__score=score;
+  track("resume-scanned");$("card").innerHTML="";renderJD(raw);
+  const f=bad.concat(warn).map(i=>i.t);renderCmp(saveHist(score,f),score,f);
   $("res").style.display="block";
   countUp(score);
   const col=score>=75?"var(--ok)":score>=50?"var(--warn)":"var(--bad)";
@@ -314,6 +438,9 @@ function show(score,bad,warn,ok,raw){
   if(score>=75)setTimeout(confetti,900);
   $("verdict").textContent=score>=75?"Ready to submit":score>=50?"Needs a few fixes":"Needs work";
   $("raw").innerHTML=raw?robot(raw):"No text could be extracted.";
+  renderBreakdown("bd",r.B,true);
+  $("hm").innerHTML=heatHTML(raw,r);
+  $("tips").innerHTML=tipsHTML(raw);
   const sets={"Fix first":[bad,"var(--bad)"],"Improve":[warn,"var(--warn)"],"Passed":[ok,"var(--ok)"]};
   let cur=bad.length?"Fix first":warn.length?"Improve":"Passed";
   const done=new Set();
@@ -408,12 +535,7 @@ const SAMPLE=[
 "Organized a coding workshop for 80 first year students and mentored 10 of them on their first project.",
 "Certifications","Responsive Web Design certificate, JavaScript Algorithms certificate, SQL fundamentals course."
 ].join("\n");
-$("sample").onclick=async()=>{
-  $("sheet").classList.add("scanning");
-  await new Promise(r=>setTimeout(r,1800));
-  $("sheet").classList.remove("scanning");
-  analyze(SAMPLE,"pdf");
-};
+$("sample").onclick=()=>scan(SAMPLE,"pdf","sample-resume.pdf");
 
 /* ---------- hero: rotating resumes, tilt, typing, reveal ---------- */
 const PERSONAS=[
@@ -459,6 +581,117 @@ if(!RM){
 const wh=document.querySelector(".why");
 if("IntersectionObserver" in window)new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");o.unobserve(e.target)}}),{threshold:.2}).observe(wh);
 else wh.classList.add("in");
+
+/* ---------- section parsing, heat map, rewrite tips ---------- */
+const EXTRAHEAD=/^(achievements?|awards?|certifications?|summary|objective|profile|interests|languages|publications|volunteer(ing)?|references|hobbies|personal details|my learning journey)$/i;
+function sections(raw){
+  const lines=raw.split("\n"),out={},idx=[];
+  lines.forEach((l,i)=>{
+    const t=l.trim().replace(/[:\-–]+$/,"").trim();
+    if(!t||t.length>30||t.split(/\s+/).length>3)return;
+    for(const [n,re] of Object.entries(HEADERS)){if(re.test(t)){idx.push([i,n]);return}}
+    if(EXTRAHEAD.test(t))idx.push([i,null]);
+  });
+  idx.forEach(([i,n],k)=>{if(n&&!out[n])out[n]=lines.slice(i+1,k+1<idx.length?idx[k+1][0]:lines.length)});
+  return out;
+}
+function heatHTML(raw,r){
+  const sec=sections(raw);if(!Object.keys(sec).length)return"";
+  const m=r.m,cc=[m.email,m.phone,m.linkedin].filter(Boolean).length,rows=[];
+  const cl={g:"var(--ok)",a:"var(--warn)",r:"var(--bad)"};
+  rows.push({n:"Contact",f:10,s:cc===3?"g":cc===2?"a":"r",d:cc+" of 3 found (email, phone, LinkedIn)"});
+  const cnt=t=>({w:t.split(/\s+/).filter(Boolean).length,v:VERBS.filter(x=>new RegExp("\\b"+x+"\\b","i").test(t)).length,n:(t.match(/\b(?!(?:19|20)\d\d\b)\d[\d,.]*%?/g)||[]).length});
+  Object.keys(HEADERS).forEach(n=>{
+    const ls=sec[n];
+    if(!ls){rows.push({n,f:10,s:"r",d:"Heading not found"});return}
+    const t=ls.join("\n"),c=cnt(t);let s,d;
+    if(n==="Experience"){s=c.v>=4&&c.n>=2?"g":c.v>=2?"a":"r";d=c.v+" action verbs, "+c.n+" numbers"}
+    else if(n==="Education"){s=c.w>=6?"g":"a";d=c.w>=6?"Details found":"Add degree, school and year"}
+    else if(n==="Skills"){const k=t.split(/[,•|;·\n]/).filter(x=>x.trim()).length;s=k>=6?"g":k>=3?"a":"r";d=k+" skills listed"}
+    else{s=c.v>=2?"g":c.v>=1?"a":"r";d=c.v+" action verbs"}
+    rows.push({n,f:Math.max(c.w,10),s,d});
+  });
+  return "<h5>Section heat map</h5><div class=\"hmstrip\">"+rows.map(x=>"<div class=\"seg\" style=\"--f:"+x.f+";--c:"+cl[x.s]+"\">"+x.n+"</div>").join("")+"</div>"+rows.map(x=>"<div class=\"hmrow\" style=\"--c:"+cl[x.s]+"\"><i></i><b>"+x.n+"</b><span>"+x.d+"</span></div>").join("");
+}
+const WEAKSTART=/^(responsible for|worked on|helped with|helped|assisted with|duties included|involved in)\s+(?:the\s+)?/i;
+const PAST={fixing:"Fixed",building:"Built",managing:"Managed",testing:"Tested",writing:"Wrote",creating:"Created",developing:"Developed",designing:"Designed",handling:"Handled",maintaining:"Maintained",supporting:"Supported",leading:"Led",improving:"Improved",coordinating:"Coordinated",preparing:"Prepared",organizing:"Organized",analyzing:"Analyzed",implementing:"Implemented",updating:"Updated"};
+function tipsHTML(raw){
+  if(!raw)return"";
+  const sec=sections(raw);let ls=[].concat(sec.Experience||[],sec.Projects||[]);
+  if(!ls.length)ls=raw.split("\n");
+  const lines=ls.join("\n").split(/[•●▪◦]|\n/).map(x=>x.replace(/^[\s\-–*]+/,"").trim()).filter(x=>{const w=x.split(/\s+/).length;return w>=6&&w<=40&&/[a-z]/.test(x)&&(x.match(/,/g)||[]).length<w/4});
+  if(!lines.length)return"";
+  const weak=[],nov=[],nonum=[],clean=x=>x.replace(/[.\s]+$/,"");
+  for(const x0 of lines){
+    if(/\b(19|20)\d\d\b/.test(x0))continue;
+    const x=x0.replace(/^[^:]{1,40}:\s*/,"");
+    const wm=x.match(WEAKSTART),first=x.split(/\s+/)[0].replace(/[^a-z]/gi,"").toLowerCase();
+    if(wm){const rest=x.slice(wm[0].length),w1=rest.split(/\s+/)[0].toLowerCase();weak.push({o:x0,s:(PAST[w1]?PAST[w1]+rest.slice(w1.length):"Delivered "+rest).replace(/[.\s]+$/,"")+", improving [metric] by [N]%.",t:"Lead with a strong verb and show the result."})}
+    else if(!(VERBS.includes(first)||/ed$/.test(first)||["led","built","wrote","won","ran"].includes(first)))nov.push({o:x0,s:"",t:"Start with a strong verb such as Built, Led or Improved, then add a result with a number."});
+    else if(!/\d/.test(x))nonum.push({o:x0,s:clean(x)+", cutting [metric] by [N]%.",t:"Add a number: how many, how much, how fast?"});
+  }
+  const out=weak.concat(nov,nonum).slice(0,5);
+  if(!out.length)return"<h5>Bullet rewrite tips</h5><p style=\"margin:4px 0 0;color:var(--muted);font-size:14px\">Every bullet starts with a strong verb and shows a result. Nice work.</p>";
+  return "<h5>Bullet rewrite tips</h5>"+out.map(o=>"<div class=\"tip\"><div class=\"o\">"+esc(o.o)+"</div>"+(o.s?"<div class=\"s\">"+esc(o.s)+"</div>":"")+"<span>"+o.t+"</span></div>").join("");
+}
+function renderBreakdown(id,B,anim){
+  const box=$(id),ent=Object.entries(B);
+  if(!anim&&box.children.length===ent.length){
+    ent.forEach(([k,[p,mx]],i)=>{const row=box.children[i],el=row.querySelector("i");el.style.width=Math.round(p/mx*100)+"%";el.style.background=bc(p/mx);row.querySelector("b").textContent=p+"/"+mx});
+    return;
+  }
+  box.innerHTML=ent.map(([k,[p,mx]])=>"<div class=\"bk\"><span>"+k+"</span><div class=\"bar\"><i style=\"width:0;background:"+bc(p/mx)+"\" data-w=\""+Math.round(p/mx*100)+"\"></i></div><b>"+p+"/"+mx+"</b></div>").join("");
+  [...box.querySelectorAll(".bar i")].forEach((el,i)=>setTimeout(()=>{el.style.width=el.dataset.w+"%"},anim&&!RM?150+i*140:20));
+}
+
+/* ---------- branded PDF report (print layout) ---------- */
+function buildReport(){
+  const L=window.__last;if(!L)return false;
+  const {r,raw}=L,sc=r.score,col=sc>=75?"#0f9d6b":sc>=50?"#b7791f":"#d6334f";
+  const d=new Date().toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"});
+  const list=(a,t)=>a.length?"<h3>"+t+" ("+a.length+")</h3>"+a.map(i=>"<div class=\"ri\"><b>"+i.t+"</b> · "+i.d+"</div>").join(""):"";
+  const bd=Object.entries(r.B).map(([k,[p,mx]])=>"<div class=\"bk\"><span>"+k+"</span><div class=\"bar\"><i style=\"width:"+Math.round(p/mx*100)+"%;background:"+(p/mx>=.8?"#0f9d6b":p/mx>=.5?"#b7791f":"#d6334f")+"\"></i></div><b>"+p+"/"+mx+"</b></div>").join("");
+  $("report").innerHTML="<div class=\"rh\"><div class=\"rl\">My<i>ATS</i></div><div>Resume report · "+d+"</div></div>"
+   +"<div class=\"rs\"><div class=\"rn\" style=\"color:"+col+"\">"+sc+"<small>/100</small></div><div><b style=\"font-size:16px\">"+(sc>=75?"Ready to submit":sc>=50?"Needs a few fixes":"Needs work")+"</b><br>"+r.m.words+" words · "+r.m.verbs+" action verbs found</div></div>"
+   +"<h3>Score breakdown</h3>"+bd
+   +list(r.bad,"Fix first")+list(r.warn,"Improve")+list(r.ok,"Passed")
+   +"<div style=\"margin-top:6px\">"+heatHTML(raw,r).replace("<h5>","<h3 style=\"margin-top:16px\">").replace("</h5>","</h3>")+"</div>"
+   +"<div>"+tipsHTML(raw).replace("<h5>","<h3>").replace("</h5>","</h3>")+"</div>"
+   +"<div class=\"rf\">Generated by MyATS · Built by Viresh R, II Year CSE A, RYMEC · Your resume was analysed in your browser and never uploaded.</div>";
+  return true;
+}
+
+/* ---------- live editor ---------- */
+(function(){
+  const lt=$("lt"),ljd=$("ljd");let timer=null;
+  function live(){
+    const t=lt.value,has=!!t.trim(),w=has?t.trim().split(/\s+/).length:0;
+    $("wcn").textContent=w+(w===1?" word":" words");
+    $("wdot").style.left=Math.min(w/1800,1)*100+"%";
+    $("wcp").textContent=!w?"Aim for 300 to 1,500 words, about 1 to 2 pages.":w<300?(300-w)+" more words to reach the sweet spot.":w>1500?(w-1500)+" words over. Trim older entries.":"In the sweet spot, about "+(w/500).toFixed(1)+" pages.";
+    $("lj").innerHTML=jdHTML(ljd.value.trim(),t);
+    const arc=$("larc");
+    if(!has){
+      arc.style.strokeDashoffset=314;$("lsc").textContent="0";$("lv").textContent="Start typing";$("lvs").textContent="Your live score appears here.";
+      $("lbd").innerHTML="";$("lis").innerHTML="";$("ltips").innerHTML="";return;
+    }
+    const r=evaluate(t,"txt"),sc=r.score;
+    arc.style.stroke=sc>=75?"var(--ok)":sc>=50?"var(--warn)":"var(--bad)";
+    arc.style.strokeDashoffset=314*(1-sc/100);
+    $("lsc").textContent=sc;
+    $("lv").textContent=sc>=75?"Ready to submit":sc>=50?"Needs a few fixes":"Needs work";
+    $("lvs").textContent=r.bad.length+" to fix first, "+r.warn.length+" to improve";
+    renderBreakdown("lbd",r.B,false);
+    const items=r.bad.map(i=>[i,"var(--bad)"]).concat(r.warn.map(i=>[i,"var(--warn)"])).slice(0,4);
+    $("lis").innerHTML=items.length?items.map(([i,c])=>"<div class=\"item\" style=\"--c:"+c+"\"><b>"+i.t+"</b><span>"+i.d+"</span></div>").join(""):"<div class=\"item\" style=\"--c:var(--ok)\"><b>No issues found</b><span>All checks passed.</span></div>";
+    $("ltips").innerHTML=tipsHTML(t);
+  }
+  const later=()=>{clearTimeout(timer);timer=setTimeout(live,120)};
+  lt.addEventListener("input",later);ljd.addEventListener("input",later);
+  $("lsample").onclick=()=>{lt.value=SAMPLE;live()};
+  $("lclear").onclick=()=>{lt.value="";live()};
+  live();
+})();
 </script>
 </body>
 </html>

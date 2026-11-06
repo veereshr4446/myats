@@ -147,6 +147,14 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 .mq:hover .track{animation-play-state:paused}
 @keyframes mq{to{transform:translateX(-100%)}}
 .co{white-space:nowrap;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:9px 20px;font:700 16px "Plus Jakarta Sans",sans-serif;color:var(--ink)}
+.cogrid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px 10px;margin:10px 0 6px}
+@media(max-width:860px){.cogrid{grid-template-columns:repeat(3,1fr)}}
+.cogrid span{padding:14px 4px;font:800 clamp(14px,1.7vw,19px) "Plus Jakarta Sans",sans-serif;letter-spacing:-.01em;color:var(--ink);opacity:.62;transition:opacity .2s,color .2s,transform .2s;cursor:default}
+.cogrid span:hover{opacity:1;color:var(--acc);transform:translateY(-2px)}
+.js .cogrid span{opacity:0;transform:translateY(14px)}
+.js .cogrid.in span{opacity:.62;transform:none;transition:opacity .5s calc(var(--i)*30ms),transform .5s calc(var(--i)*30ms),color .2s}
+.js .cogrid.in span:hover{opacity:1;color:var(--acc);transform:translateY(-2px);transition:opacity .2s,transform .2s,color .2s}
+.fine{max-width:62ch;margin:10px auto 0;font-size:12px;line-height:1.5;color:var(--muted)}
 .lgs{max-width:52ch;margin:18px auto 0;color:var(--muted);font-size:15px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:30px 0 40px}
 @media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
@@ -160,8 +168,9 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 @keyframes tin{from{opacity:0;transform:translateX(-6px)}}
 .navr{display:flex;gap:8px}
 .tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:0 0 26px}
-.tools a{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font:600 14px "Inter",sans-serif;color:var(--ink);text-decoration:none}
-.tools a:hover{border-color:var(--acc);color:var(--acc)}
+.tools button{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:9px 18px;font:600 14px "Inter",sans-serif;color:var(--ink);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.tools button:hover{border-color:var(--acc);color:var(--acc)}
+.tools button[aria-expanded="true"]{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
 .ps{border-top:1px solid var(--line);padding:46px 0 30px}
 .ps h2{font:800 clamp(26px,4vw,38px)/1.1 "Plus Jakarta Sans",sans-serif;letter-spacing:-.03em;margin:0 0 6px}
 .ps .sub{color:var(--muted);margin:0 0 22px}
@@ -294,7 +303,7 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 <div class="beam"></div></div></div></div>
 </section>
 
-<div class="tools" role="navigation" aria-label="Tools"><a href="#live">Live editor</a><a href="#roles">Role keywords</a><a href="#compare">Compare resumes</a><a href="#builder">Resume builder</a></div>
+<div class="tools" role="navigation" aria-label="Tools"><button type="button" data-tool="live" aria-expanded="false">Live editor</button><button type="button" data-tool="roles" aria-expanded="false">Role keywords</button><button type="button" data-tool="compare" aria-expanded="false">Compare resumes</button><button type="button" data-tool="builder" aria-expanded="false">Resume builder</button></div>
 
 <section id="res"><div class="panel"><div class="rgrid">
 <div>
@@ -314,7 +323,7 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 <div class="parser"><h5>What the robot read</h5><p class="lg"><mark class="g">action verb</mark><mark class="n">number</mark><mark class="r">weak phrase</mark></p><span id="raw"></span></div></div>
 </div></div></section>
 
-<section class="live" id="live">
+<section class="live" id="live" hidden>
 <h2>Live editor</h2>
 <p class="sub">Type or paste your resume text. The score, checks and keyword match update as you write. Scores are estimates based on common ATS rules.</p>
 <div class="lgrid">
@@ -336,14 +345,14 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 </div>
 </section>
 
-<section class="ps" id="roles">
+<section class="ps" id="roles" hidden>
 <h2>Role keyword check</h2>
 <p class="sub">Pick the role you are applying for. You will see which common keywords your resume already has and which are missing. It uses your last scan or the text in the live editor.</p>
 <select id="role" aria-label="Role"></select>
 <div id="rolebox" class="blk"></div>
 </section>
 
-<section class="ps" id="compare">
+<section class="ps" id="compare" hidden>
 <h2>Compare two resumes</h2>
 <p class="sub">Upload an older and a newer version to see exactly what improved. Files stay in your browser.</p>
 <div class="cgrid">
@@ -354,7 +363,7 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 <div id="cres"></div>
 </section>
 
-<section class="ps" id="builder">
+<section class="ps" id="builder" hidden>
 <h2>ATS-friendly resume builder</h2>
 <p class="sub">Fill in your details to get a clean one-column resume with standard headings, the layout ATS software reads best. Download it as PDF or Word, or send it straight to the scorer. Your details are saved only in this browser.</p>
 <div class="bgrid">
@@ -383,9 +392,9 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 </section>
 
 <section class="logos" aria-label="Companies">
-<p class="lgt">Built for people applying to companies like</p>
-<div class="mq"><div class="track"><span class="co">Google</span><span class="co">Amazon</span><span class="co">Microsoft</span><span class="co">Apple</span><span class="co">Meta</span><span class="co">Tesla</span><span class="co">Netflix</span><span class="co">Adobe</span><span class="co">Nvidia</span><span class="co">Intel</span><span class="co">Oracle</span><span class="co">IBM</span><span class="co">Infosys</span></div><div class="track" aria-hidden="true"><span class="co">Google</span><span class="co">Amazon</span><span class="co">Microsoft</span><span class="co">Apple</span><span class="co">Meta</span><span class="co">Tesla</span><span class="co">Netflix</span><span class="co">Adobe</span><span class="co">Nvidia</span><span class="co">Intel</span><span class="co">Oracle</span><span class="co">IBM</span><span class="co">Infosys</span></div></div>
-<div class="mq"><div class="track rev"><span class="co">TCS</span><span class="co">Wipro</span><span class="co">Accenture</span><span class="co">Deloitte</span><span class="co">Walmart</span><span class="co">Uber</span><span class="co">Airbnb</span><span class="co">Spotify</span><span class="co">PayPal</span><span class="co">Samsung</span><span class="co">Flipkart</span><span class="co">Zoho</span><span class="co">Cognizant</span></div><div class="track rev" aria-hidden="true"><span class="co">TCS</span><span class="co">Wipro</span><span class="co">Accenture</span><span class="co">Deloitte</span><span class="co">Walmart</span><span class="co">Uber</span><span class="co">Airbnb</span><span class="co">Spotify</span><span class="co">PayPal</span><span class="co">Samsung</span><span class="co">Flipkart</span><span class="co">Zoho</span><span class="co">Cognizant</span></div></div>
+<p class="lgt">Built for people applying to companies like these*</p>
+<div class="cogrid"><span style="--i:0">Google</span><span style="--i:1">Amazon</span><span style="--i:2">Microsoft</span><span style="--i:3">Apple</span><span style="--i:4">Meta</span><span style="--i:5">Tesla</span><span style="--i:6">YouTube</span><span style="--i:7">Nvidia</span><span style="--i:8">Samsung</span><span style="--i:9">Adobe</span><span style="--i:10">Intel</span><span style="--i:11">Oracle</span><span style="--i:12">Walmart</span><span style="--i:13">TCS</span><span style="--i:14">Infosys</span><span style="--i:15">Accenture</span><span style="--i:16">Deloitte</span><span style="--i:17">IBM</span><span style="--i:18">Coca-Cola</span><span style="--i:19">Pepsi</span><span style="--i:20">McDonald’s</span><span style="--i:21">Nike</span><span style="--i:22">BMW</span><span style="--i:23">Mercedes-Benz</span><span style="--i:24">Hyundai</span><span style="--i:25">L’Oréal</span><span style="--i:26">Louis Vuitton</span><span style="--i:27">Chanel</span><span style="--i:28">Zara</span><span style="--i:29">H&amp;M</span><span style="--i:30">Netflix</span><span style="--i:31">Spotify</span><span style="--i:32">PayPal</span><span style="--i:33">Uber</span><span style="--i:34">Airbnb</span><span style="--i:35">Alibaba</span></div>
+<p class="fine">* Company names are trademarks of their respective owners and are shown only as examples of employers. MyATS is not affiliated with, endorsed by, or sponsored by any of them.</p>
 <p class="lgs">Applying to one of them? Paste the job description above to see which of its keywords your resume is missing.</p>
 <div class="stats"><div><b id="vc">59</b><span>action verbs checked</span></div><div><b>7</b><span>checks on every resume</span></div><div><b>0</b><span>files uploaded</span></div><div><b>Free</b><span>no sign-up</span></div></div>
 </section>
@@ -748,9 +757,9 @@ if(!RM){
   }
   setTimeout(step,2600);
 }
-const wh=document.querySelector(".why");
-if("IntersectionObserver" in window)new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");o.unobserve(e.target)}}),{threshold:.2}).observe(wh);
-else wh.classList.add("in");
+const revs=[document.querySelector(".why"),document.querySelector(".cogrid")];
+if("IntersectionObserver" in window){const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");o.unobserve(e.target)}}),{threshold:.15});revs.forEach(x=>io.observe(x))}
+else revs.forEach(x=>x.classList.add("in"));
 
 /* ---------- section parsing, heat map, rewrite tips ---------- */
 const EXTRAHEAD=/^(achievements?|awards?|certifications?|summary|objective|profile|interests|languages|publications|volunteer(ing)?|references|hobbies|personal details|my learning journey)$/i;
@@ -1017,7 +1026,7 @@ $("bdoc").onclick=()=>{
 };
 $("bscore").onclick=()=>{
   const t=resumeText(RB);if(!t.trim())return alert("Fill in a few details first.");
-  $("lt").value=t;$("lt").dispatchEvent(new Event("input"));$("live").scrollIntoView({behavior:"smooth"});
+  $("lt").value=t;$("lt").dispatchEvent(new Event("input"));openTool("live");
 };
 $("bfill").onclick=()=>{RB=JSON.parse(JSON.stringify(EXAMPLE));saveRB();loadForm();paintB()};
 loadForm();paintB();
@@ -1028,6 +1037,12 @@ addEventListener("beforeinstallprompt",e=>{e.preventDefault();dip=e;$("inst").hi
 addEventListener("appinstalled",()=>{$("inst").hidden=true});
 $("inst").onclick=async()=>{if(!dip)return;dip.prompt();try{await dip.userChoice}catch(e){}dip=null;$("inst").hidden=true};
 if("serviceWorker" in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register("sw.js").catch(()=>{});
+
+/* ---------- tools open on demand ---------- */
+function syncTools(){document.querySelectorAll(".tools button").forEach(b=>b.setAttribute("aria-expanded",String(!$(b.dataset.tool).hidden)))}
+function openTool(id){const sec=$(id);if(!sec)return;sec.hidden=false;syncTools();sec.scrollIntoView({behavior:"smooth"})}
+document.querySelectorAll(".tools button").forEach(b=>b.addEventListener("click",()=>{const sec=$(b.dataset.tool);if(sec.hidden)openTool(b.dataset.tool);else{sec.hidden=true;syncTools()}}));
+if(location.hash&&["live","roles","compare","builder"].includes(location.hash.slice(1)))openTool(location.hash.slice(1));
 
 /* ---------- live editor ---------- */
 (function(){

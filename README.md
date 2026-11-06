@@ -93,7 +93,7 @@ Enable GitHub Pages (Settings, Pages, deploy from the `main` branch), or import 
 index.html            the whole app: HTML, CSS and JavaScript
 sw.js                 service worker for offline use
 manifest.webmanifest  makes the site installable
-favicon.svg, icon-*   icons
+favicon.png, icon-*   app icons (from the MyATS logo)
 og.png                share preview image
 tests/                scoring engine tests
 docs/                 screenshots used in this README

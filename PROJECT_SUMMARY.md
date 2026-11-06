@@ -7,7 +7,7 @@ Single `index.html` (vanilla JS, no build step).
 - Parsing: pdf.js and mammoth.js from cdnjs.
 - Score (100 pts): file format, length (300-1,500 words), action verbs, contact info, section headings.
 - Extra checks: measurable results, buzzword detector, optional job description matcher.
-- UI: animated score ring, tabs (Fix first, Improve, Passed), parser view, localStorage history, print-to-PDF report, canvas share card, light/dark theme.
+- UI: animated score ring, tabs (Fix first, Improve, Passed), parser view, localStorage history, print-to-PDF report, canvas share card, light (default) and dark theme, rotating hero resumes with tilt, robot-view highlights, fix checklist, last-scan comparison, confetti, sample resume.
 - Fonts: Plus Jakarta Sans (headings), Inter (body).
 
 ## Next tasks

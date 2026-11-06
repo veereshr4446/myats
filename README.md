@@ -8,7 +8,10 @@ A free resume checker that runs entirely in the browser. No backend, no uploads.
 - Measurable results check and buzzword detector
 - Optional job description keyword matcher
 - Score history, PDF report (print), share card image
-- Light and dark theme
+- Light theme by default, dark theme on toggle
+- Hero: rotating sample resumes with scan ticks, floating badges, tilt that follows the pointer, typing headline
+- Results: count-up score, confetti at 75+, robot-view highlights, fix checklist, comparison with your last scan
+- Built-in sample resume to try without a file
 
 ## Run
 Open `index.html` in a browser.

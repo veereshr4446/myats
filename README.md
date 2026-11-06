@@ -29,6 +29,7 @@ See your resume the way hiring software does. Drop in a PDF, DOCX or a photo and
 
 **Polish**
 - Rotating sample resumes, scan animation and floating badges on the home page
+- Side menu (top left) opens each tool full screen, so the home page stays clean
 - Light theme by default, dark theme on toggle, works on phones
 - Installable as an app and opens offline (service worker)
 - Share preview card and favicon for WhatsApp and LinkedIn links

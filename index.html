@@ -119,8 +119,22 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 .js .why div{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
 .js .why.in div{opacity:1;transform:none}
 .js .why.in div:nth-child(2){transition-delay:.12s}.js .why.in div:nth-child(3){transition-delay:.24s}
-@media print{.bgfx,nav,.hero,.why,footer,#again,#print,#hist,.tabs{display:none!important}body{background:#fff}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.tag,.mk{opacity:1}}
+.logos{border-top:1px solid var(--line);padding:44px 0 8px;text-align:center}
+.lgt{margin:0 0 18px;font:700 13px "Inter",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.mq{display:flex;overflow:hidden;margin:10px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.track{display:flex;gap:12px;padding-right:12px;flex:none;animation:mq 45s linear infinite}
+.track.rev{animation-direction:reverse;animation-duration:55s}
+.mq:hover .track{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-100%)}}
+.co{white-space:nowrap;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:9px 20px;font:700 16px "Plus Jakarta Sans",sans-serif;color:var(--ink)}
+.lgs{max-width:52ch;margin:18px auto 0;color:var(--muted);font-size:15px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:30px 0 40px}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stats div{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 8px}
+.stats b{display:block;font:800 clamp(28px,4vw,40px)/1.1 "Plus Jakarta Sans",sans-serif;letter-spacing:-.02em;color:var(--acc)}
+.stats span{font-size:14px;color:var(--muted)}
+@media print{.logos,.bgfx,nav,.hero,.why,footer,#again,#print,#hist,.tabs{display:none!important}body{background:#fff}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.tag,.mk{opacity:1}.mq{display:block;-webkit-mask-image:none;mask-image:none}.track{flex-wrap:wrap;justify-content:center;animation:none}.track[aria-hidden]{display:none}}
 </style>
 </head>
 <body>
@@ -175,6 +189,14 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 <div id="jd"></div>
 <div class="parser"><h5>What the robot read</h5><p class="lg"><mark class="g">action verb</mark><mark class="n">number</mark><mark class="r">weak phrase</mark></p><span id="raw"></span></div></div>
 </div></div></section>
+
+<section class="logos" aria-label="Companies">
+<p class="lgt">Built for people applying to companies like</p>
+<div class="mq"><div class="track"><span class="co">Google</span><span class="co">Amazon</span><span class="co">Microsoft</span><span class="co">Apple</span><span class="co">Meta</span><span class="co">Tesla</span><span class="co">Netflix</span><span class="co">Adobe</span><span class="co">Nvidia</span><span class="co">Intel</span><span class="co">Oracle</span><span class="co">IBM</span><span class="co">Infosys</span></div><div class="track" aria-hidden="true"><span class="co">Google</span><span class="co">Amazon</span><span class="co">Microsoft</span><span class="co">Apple</span><span class="co">Meta</span><span class="co">Tesla</span><span class="co">Netflix</span><span class="co">Adobe</span><span class="co">Nvidia</span><span class="co">Intel</span><span class="co">Oracle</span><span class="co">IBM</span><span class="co">Infosys</span></div></div>
+<div class="mq"><div class="track rev"><span class="co">TCS</span><span class="co">Wipro</span><span class="co">Accenture</span><span class="co">Deloitte</span><span class="co">Walmart</span><span class="co">Uber</span><span class="co">Airbnb</span><span class="co">Spotify</span><span class="co">PayPal</span><span class="co">Samsung</span><span class="co">Flipkart</span><span class="co">Zoho</span><span class="co">Cognizant</span></div><div class="track rev" aria-hidden="true"><span class="co">TCS</span><span class="co">Wipro</span><span class="co">Accenture</span><span class="co">Deloitte</span><span class="co">Walmart</span><span class="co">Uber</span><span class="co">Airbnb</span><span class="co">Spotify</span><span class="co">PayPal</span><span class="co">Samsung</span><span class="co">Flipkart</span><span class="co">Zoho</span><span class="co">Cognizant</span></div></div>
+<p class="lgs">Applying to one of them? Paste the job description above to see which of its keywords your resume is missing.</p>
+<div class="stats"><div><b id="vc">59</b><span>action verbs checked</span></div><div><b>7</b><span>checks on every resume</span></div><div><b>0</b><span>files uploaded</span></div><div><b>Free</b><span>no sign-up</span></div></div>
+</section>
 
 <section class="why">
 <div><h3>Private by design</h3><p>Parsing happens on your device. There is no server to send your resume to.</p></div>
@@ -307,6 +329,7 @@ function show(score,bad,warn,ok,raw){
 }
 
 /* ---------- extras ---------- */
+$("vc").textContent=VERBS.length;
 const RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
 const BUZZ=/responsible for|worked on|helped with|duties included|team player|hard[- ]?working|detail[- ]oriented|self[- ]motivated|go-getter|synergy|results[- ]driven|passionate/;
 function robot(raw){

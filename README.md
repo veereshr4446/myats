@@ -4,6 +4,7 @@ A free resume checker that runs entirely in the browser. No backend, no uploads.
 
 ## Features
 - PDF and DOCX parsing (pdf.js, mammoth.js)
+- Photos and scanned PDFs are read with OCR (Tesseract.js, loaded only when needed)
 - Score out of 100: format, length, action verbs, contact info, section headings
 - Measurable results check and buzzword detector
 - Optional job description keyword matcher
@@ -27,3 +28,6 @@ Uses [GoatCounter](https://www.goatcounter.com): free, no cookies, no personal d
 1. Create a free account and choose a site code.
 2. Set `GC_CODE` near the top of the extras section in `index.html`.
 3. Your dashboard shows visits and "resume-scanned" events. It is private unless you make it public in GoatCounter settings.
+
+## Note on scores
+The score is an estimate based on common ATS rules. Real systems differ.

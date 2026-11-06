@@ -139,6 +139,7 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 .tl::before{content:"› ";color:var(--acc)}
 .tl.ok{color:var(--ok)}.tl.warn{color:var(--warn)}.tl.bad{color:var(--bad)}
 @keyframes tin{from{opacity:0;transform:translateX(-6px)}}
+.est{margin:-6px 0 14px;text-align:center;font-size:12px;color:var(--muted)}
 .blk{margin-top:18px}
 .blk:not(:empty){padding:16px;border:1px solid var(--line);border-radius:14px}
 .blk h5{margin:0 0 4px;font:800 18px "Plus Jakarta Sans",sans-serif}
@@ -197,10 +198,10 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 <p class="lede">Drop in a PDF or Word file. In seconds you’ll know which parts a screening system can read, and which parts it can’t.</p>
 <label class="drop" id="drop" tabindex="0">
 <div class="ic">⤒</div>
-<div><b>Drop your resume here</b><span>PDF or DOCX, up to 5 MB. Or tap to browse.</span></div>
-<input type="file" id="file" accept=".pdf,.docx,.doc,.png,.jpg,.jpeg" hidden>
+<div><b>Drop your resume here</b><span>PDF, DOCX, or a photo or scan of your resume, up to 5 MB. Or tap to browse.</span></div>
+<input type="file" id="file" accept=".pdf,.docx,.doc,.png,.jpg,.jpeg,.webp" hidden>
 </label>
-<div class="privacy">Your file is read inside your browser and never uploaded.</div>
+<div class="privacy">Your file is read inside your browser and never uploaded. Photos and scans are read with OCR, which downloads language data once and can take 10 to 30 seconds.</div>
 <button class="sample" id="sample" type="button">No resume handy? Try a sample.</button>
 <details class="jdbox"><summary>Match against a job description (optional)</summary><textarea id="jdtext" rows="5" placeholder="Paste the job posting here before you drop your resume"></textarea></details>
 <div class="term" id="term" hidden aria-live="polite"></div>
@@ -228,6 +229,7 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 <div>
 <div class="ring"><svg width="176" height="176" viewBox="0 0 176 176"><circle cx="88" cy="88" r="74" fill="none" stroke="var(--line)" stroke-width="12"/><circle id="arc" cx="88" cy="88" r="74" fill="none" stroke="var(--acc)" stroke-width="12" stroke-linecap="round" stroke-dasharray="465" stroke-dashoffset="465" style="transition:stroke-dashoffset 1.3s cubic-bezier(.2,.8,.2,1)"/></svg><div class="n"><div><span id="score">0</span><small>out of 100</small></div></div></div>
 <div class="verdict" id="verdict"></div>
+<p class="est">An estimate based on common ATS rules. Real systems differ.</p>
 <button class="btn" id="again">Check another resume</button>
 <button class="btn ghost" id="print">Download PDF report</button>
 <button class="btn ghost" id="cardbtn">Create share card</button>
@@ -243,7 +245,7 @@ mark.g{background:rgba(16,185,129,.24)}mark.n{background:rgba(91,61,245,.22)}mar
 
 <section class="live" id="live">
 <h2>Live editor</h2>
-<p class="sub">Type or paste your resume text. The score, checks and keyword match update as you write.</p>
+<p class="sub">Type or paste your resume text. The score, checks and keyword match update as you write. Scores are estimates based on common ATS rules.</p>
 <div class="lgrid">
 <div>
 <textarea id="lt" rows="14" placeholder="Paste your resume text here…" aria-label="Resume text"></textarea>
@@ -307,8 +309,30 @@ $("again").onclick=()=>{$("res").style.display="none";fin.value="";$("hero").scr
 
 const esc=x=>String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 const bc=x=>x>=.8?"var(--ok)":x>=.5?"var(--warn)":"var(--bad)";
-async function extract(f,ext){
+let tessP=null;
+function loadTess(){
+  return tessP||(tessP=new Promise((res,rej)=>{
+    if(window.Tesseract)return res();
+    const sc=document.createElement("script");
+    sc.src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js";
+    sc.onload=res;sc.onerror=()=>{tessP=null;rej(new Error("ocr-load"))};
+    document.head.appendChild(sc);
+  }));
+}
+async function ocr(img,onP){
+  await loadTess();
+  const w=await Tesseract.createWorker("eng",1,{logger:m=>{if(onP&&m.status==="recognizing text")onP(Math.round(m.progress*100))}});
+  try{const r=await w.recognize(img);return(r.data&&r.data.text)||""}finally{try{await w.terminate()}catch(e){}}
+}
+async function fileToCanvas(f){
+  const bm=await createImageBitmap(f),k=Math.min(1,2200/Math.max(bm.width,bm.height));
+  const c=document.createElement("canvas");c.width=Math.round(bm.width*k);c.height=Math.round(bm.height*k);
+  c.getContext("2d").drawImage(bm,0,0,c.width,c.height);return c;
+}
+const IMGEXT=["png","jpg","jpeg","webp"];
+async function extract(f,ext,onP){
   const buf=await f.arrayBuffer();
+  if(IMGEXT.includes(ext))return{t:await ocr(await fileToCanvas(f),onP),src:"ocr-img"};
   if(ext==="pdf"){
     const pdf=await pdfjsLib.getDocument({data:buf}).promise;let t="";
     for(let i=1;i<=pdf.numPages;i++){
@@ -321,21 +345,34 @@ async function extract(f,ext){
       }
       t+="\n";
     }
-    return t;
+    if(t.replace(/\s+/g,"").length<40){
+      let o="";
+      for(let i=1;i<=Math.min(pdf.numPages,2);i++){
+        const pg=await pdf.getPage(i),vp=pg.getViewport({scale:2}),c=document.createElement("canvas");
+        c.width=vp.width;c.height=vp.height;
+        await pg.render({canvasContext:c.getContext("2d"),viewport:vp}).promise;
+        o+=await ocr(c,onP)+"\n";
+      }
+      return{t:o,src:"ocr-pdf"};
+    }
+    return{t,src:"pdf"};
   }
-  if(ext==="docx")return(await mammoth.extractRawText({arrayBuffer:buf})).value;
-  return"";
+  if(ext==="docx")return{t:(await mammoth.extractRawText({arrayBuffer:buf})).value,src:"docx"};
+  return{t:"",src:ext};
 }
 function evaluate(text,ext){
   const bad=[],warn=[],ok=[],add=(a,t,d)=>a.push({t,d});
   const B={Format:[0,15],Length:[0,20],Verbs:[0,25],Contact:[0,20],Headings:[0,20]};
   const m={words:0,verbs:0,email:false,phone:false,linkedin:false,heads:{}};
   const done=()=>({score:Math.min(100,Object.values(B).reduce((a,x)=>a+x[0],0)),bad,warn,ok,B,m});
+  m.ocr=ext==="ocr-img"||ext==="ocr-pdf";
   if(ext==="pdf"||ext==="docx"){B.Format[0]=15;add(ok,"File format","."+ext+" files are read reliably by most systems.")}
+  else if(ext==="ocr-img")add(bad,"Image file","Screening software can’t read text inside images. We read this one with OCR so you still get feedback, and some words may be misread. Upload a text-based PDF when you apply.");
+  else if(ext==="ocr-pdf"){B.Format[0]=5;add(warn,"Scanned PDF","This PDF is a picture of text, so we read it with OCR and some words may be misread. Export a text-based PDF from your editor when you apply.")}
   else if(ext==="txt"){B.Format[0]=15;add(ok,"Plain text","Typed text is always readable.")}
   else if(ext==="doc"){B.Format[0]=5;add(warn,"Older Word format","Save as PDF or DOCX so every system can read it.")}
   else add(bad,"Image file","Screening software can’t read text inside images. Upload a text-based PDF.");
-  if(!text.trim()){add(bad,"No readable text","Nothing could be extracted. If your PDF is a scan, export it again from your editor.");return done()}
+  if(!text.trim()){add(bad,"No readable text","Nothing could be extracted, even with OCR. Try a clearer photo, or export a text-based PDF from your editor.");return done()}
   const w=text.trim().split(/\s+/).length;m.words=w;
   if(w<300)add(bad,"Too short","Only "+w+" words. Aim for 300 to 1,500.");
   else if(w>1500){B.Length[0]=10;add(warn,"Too long","About "+w+" words, likely past two pages. Trim older or weaker entries.")}
@@ -359,7 +396,7 @@ function buildLog(r,name){
   const m=r.m,L=[["Reading "+name,"ok"]];
   if(!m.words){L.push(["No readable text found","bad"])}
   else{
-    L.push(["Extracting text: "+m.words+" words","ok"]);
+    L.push(["Extracting text: "+m.words+" words"+(m.ocr?" (via OCR)":""),m.ocr?"warn":"ok"]);
     const cc=[m.email,m.phone,m.linkedin].filter(Boolean).length,y=v=>v?"✓":"✗";
     L.push(["Contact: email "+y(m.email)+"  phone "+y(m.phone)+"  linkedin "+y(m.linkedin),cc===3?"ok":cc===2?"warn":"bad"]);
     const hs=Object.entries(m.heads),hc=hs.filter(x=>x[1]).length;
@@ -384,11 +421,25 @@ async function scan(t,ext,name){
   show(r,t);
 }
 async function handle(f){
-  const ext=f.name.split(".").pop().toLowerCase();
+  const name=f.name,ext=name.split(".").pop().toLowerCase();
   if(f.size>5*1024*1024)return alert("This file is over 5 MB. Compress it and try again.");
   $("sheet").classList.add("scanning");
-  let t="";try{t=await extract(f,ext)}catch(e){console.error(e)}
-  await scan(t,ext,f.name);
+  let t="",src=ext;
+  const box=$("term");
+  const say=(txt,c)=>{box.hidden=false;box.innerHTML="<div class=\"tl "+(c||"ok")+"\"></div>";box.firstChild.textContent=txt};
+  try{
+    if(IMGEXT.includes(ext))say("Reading image with OCR… the first time this downloads language data","warn");
+    const x=await extract(f,ext,n=>say("Reading text with OCR… "+n+"%","warn"));
+    t=x.t;src=x.src;
+  }catch(e){
+    console.error(e);
+    if(e&&e.message==="ocr-load"){
+      box.hidden=true;$("sheet").classList.remove("scanning");
+      return alert("The OCR engine could not load. Check your internet connection and try again, or upload a text-based PDF or DOCX.");
+    }
+  }
+  box.hidden=true;
+  await scan(t,src,name);
 }
 const STOP=new Set("the and for with that this are you our will have from your not but all can has their who they about into more other than also such use using work working team ability strong experience years skills knowledge required preferred must should able looking join role candidate responsibilities including etc well new one any may its been were what when where which while within across both each per via".split(" "));
 function makeCard(){
@@ -657,7 +708,7 @@ function buildReport(){
    +list(r.bad,"Fix first")+list(r.warn,"Improve")+list(r.ok,"Passed")
    +"<div style=\"margin-top:6px\">"+heatHTML(raw,r).replace("<h5>","<h3 style=\"margin-top:16px\">").replace("</h5>","</h3>")+"</div>"
    +"<div>"+tipsHTML(raw).replace("<h5>","<h3>").replace("</h5>","</h3>")+"</div>"
-   +"<div class=\"rf\">Generated by MyATS · Built by Viresh R, II Year CSE A, RYMEC · Your resume was analysed in your browser and never uploaded.</div>";
+   +"<div class=\"rf\">Generated by MyATS · Built by Viresh R, II Year CSE A, RYMEC · This score is an estimate based on common ATS rules; real systems differ. Your resume was analysed in your browser and never uploaded.</div>";
   return true;
 }
 

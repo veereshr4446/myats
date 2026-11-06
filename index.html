@@ -89,7 +89,11 @@ h1{font:800 clamp(38px,6.2vw,68px)/1.02 "Plus Jakarta Sans",sans-serif;letter-sp
 #res{display:none;padding-bottom:50px}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:26px}
 .rgrid{display:grid;grid-template-columns:230px 1fr;gap:22px}
-@media(max-width:760px){.rgrid{grid-template-columns:1fr}}
+@media(max-width:760px){.rgrid{grid-template-columns:minmax(0,1fr)}}
+.rgrid>*,.bgrid>*,.lgrid>*,.cgrid>*,.hero>*{min-width:0}
+#res,#res .panel{max-width:100%}
+#res pre,#raw,.parser{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;max-width:100%}
+#res .btn{max-width:100%}
 .ring{position:relative;width:176px;margin:0 auto 14px}
 .ring svg{transform:rotate(-90deg)}
 .ring .n{position:absolute;inset:0;display:grid;place-items:center;font:800 46px "Plus Jakarta Sans",sans-serif}

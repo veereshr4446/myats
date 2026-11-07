@@ -1,7 +1,7 @@
 /* MyATS service worker: lets the site open offline.
    HTML is network-first so new deployments show up right away;
    everything else (icons, pdf.js, mammoth, fonts) is cached after first use. */
-const V = "myats-v5";
+const V = "myats-v6";
 const CORE = ["./", "./index.html", "./manifest.webmanifest", "./icons/favicon-32.png", "./icons/apple-touch-icon.png", "./icons/icon-192.png", "./icons/icon-512.png"];
 
 self.addEventListener("install", e => {

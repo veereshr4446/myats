@@ -318,6 +318,16 @@ mark.g{background:rgba(22,163,74,.22)}mark.n{background:rgba(10,63,208,.2)}mark.
 .dcred{display:flex;justify-content:space-between;align-items:center;padding:12px 6px 4px;font-size:12px;color:var(--muted)}
 .dcred kbd{font:600 11px "Inter",sans-serif;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 6px;color:var(--ink);background:var(--bg)}
 body.lock{overflow:hidden}
+.ibar{display:flex;align-items:center;gap:6px;margin:0 0 14px;padding:10px 10px 10px 12px;border-radius:18px;border:1px solid color-mix(in srgb,var(--acc) 28%,transparent);background:linear-gradient(135deg,color-mix(in srgb,var(--acc) 12%,var(--surface)),var(--surface));animation:tin .4s ease both}
+.ibar[hidden]{display:none}
+.ibtn{flex:1;min-width:0;display:flex;align-items:center;gap:12px;text-align:left;background:none;border:0;padding:0;cursor:pointer;color:var(--ink);font-family:inherit}
+.ibi{flex:none;width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:var(--pri);color:#fff;box-shadow:0 8px 18px -8px var(--glow)}
+.ibi svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.ibt b{display:block;font:800 15px "Plus Jakarta Sans",sans-serif}
+.ibt small{display:block;margin-top:2px;font-size:12.5px;line-height:1.35;color:var(--muted)}
+.ibx{flex:none;width:34px;height:34px;border-radius:50%;border:0;background:none;color:var(--muted);cursor:pointer;display:grid;place-items:center;padding:0}
+.ibx:hover{background:color-mix(in srgb,var(--ink) 8%,transparent);color:var(--ink)}
+.ibx svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round}
 .paused,.paused *{animation-play-state:paused!important}
 .logos,.why{content-visibility:auto;contain-intrinsic-size:auto 520px}
 .toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);z-index:90;background:var(--ink);color:var(--bg);font:600 14px "Inter",sans-serif;padding:12px 20px;border-radius:999px;box-shadow:0 16px 40px -12px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s,transform .3s cubic-bezier(.32,.72,0,1);max-width:calc(100vw - 32px);text-align:center}
@@ -363,6 +373,10 @@ body.mopen *{animation-play-state:paused!important}
 <div class="greet" id="greet" aria-live="off"><span class="gi" id="gi"></span><span id="gt">Welcome</span></div>
 <h1>See your resume the way <span class="typed"><span class="tw" id="typed">hiring software</span><span class="gh" aria-hidden="true">hiring software</span><span class="gh" aria-hidden="true">a screening bot</span><span class="gh" aria-hidden="true">an ATS robot</span></span> does.</h1>
 <p class="lede">Drop in a PDF, Word file or photo. In seconds you’ll know which parts a screening system can read, and which parts it can’t.</p>
+<div class="ibar" id="ibar" hidden role="region" aria-label="Install MyATS">
+<button class="ibtn" id="ibtn" type="button"><span class="ibi"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M12 8v6M9.5 11.5L12 14l2.5-2.5"/></svg></span><span class="ibt"><b>Install MyATS</b><small>Only 0.2 MB. Add it to your home screen</small></span></button>
+<button class="ibx" id="ibx" type="button" aria-label="Dismiss"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</div>
 <label class="drop" id="drop" tabindex="0">
 <div class="ic">⤒</div>
 <div><b>Drop your resume here</b><span>PDF, DOCX, or a photo or scan of your resume, up to 5 MB. Or tap to browse.</span></div>
@@ -1198,9 +1212,20 @@ loadForm();paintB();
 
 /* ---------- install as app + offline ---------- */
 let dip=null;
-addEventListener("beforeinstallprompt",e=>{e.preventDefault();dip=e;$("inst").hidden=false});
-addEventListener("appinstalled",()=>{$("inst").hidden=true});
-$("inst").onclick=async()=>{if(!dip)return;dip.prompt();try{await dip.userChoice}catch(e){}dip=null;$("inst").hidden=true};
+const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)&&!standalone;
+function ibarDismissed(){try{const t=+localStorage.getItem("myats-ibar");return t&&Date.now()-t<14*864e5}catch(e){return false}}
+function showIbar(){if(!standalone&&!ibarDismissed())$("ibar").hidden=false}
+function hideIbar(save){$("ibar").hidden=true;if(save)try{localStorage.setItem("myats-ibar",Date.now())}catch(e){}}
+async function doInstall(){
+  if(dip){dip.prompt();try{await dip.userChoice}catch(e){}dip=null;$("inst").hidden=true;hideIbar(false);return}
+  if(isIOS)toast("Tap the Share icon, then Add to Home Screen")
+}
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();dip=e;$("inst").hidden=false;showIbar()});
+addEventListener("appinstalled",()=>{$("inst").hidden=true;hideIbar(false)});
+$("inst").onclick=()=>{closeDrawer();doInstall()};
+$("ibtn").onclick=doInstall;$("ibx").onclick=()=>hideIbar(true);
+if(isIOS)showIbar();
 if("serviceWorker" in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register("sw.js").catch(()=>{});
 
 /* ---------- side menu and tools ---------- */

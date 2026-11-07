@@ -156,13 +156,14 @@ mark.g{background:rgba(22,163,74,.22)}mark.n{background:rgba(10,63,208,.2)}mark.
 .mq:hover .track{animation-play-state:paused}
 @keyframes mq{to{transform:translateX(-100%)}}
 .co{white-space:nowrap;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:9px 20px;font:700 16px "Plus Jakarta Sans",sans-serif;color:var(--ink)}
-.cogrid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px 10px;margin:10px 0 6px}
-@media(max-width:860px){.cogrid{grid-template-columns:repeat(3,1fr)}}
-.cogrid span{padding:14px 4px;font:800 clamp(14px,1.7vw,19px) "Plus Jakarta Sans",sans-serif;letter-spacing:-.01em;color:var(--ink);opacity:.62;transition:opacity .2s,color .2s,transform .2s;cursor:default}
-.cogrid span:hover{opacity:1;color:var(--acc);transform:translateY(-2px)}
+.cogrid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:16px 0 8px}
+.cogrid span{--c:var(--c0,#2563eb);padding:9px 16px;border-radius:14px;font:800 clamp(14px,1.6vw,17px) "Plus Jakarta Sans",sans-serif;letter-spacing:-.01em;color:var(--c);background:color-mix(in srgb,var(--c) 9%,transparent);border:1px solid color-mix(in srgb,var(--c) 26%,transparent);white-space:nowrap;transition:transform .2s,background .2s,box-shadow .2s;cursor:default}
+.cogrid span:nth-child(6n+1){--c0:#2563eb}.cogrid span:nth-child(6n+2){--c0:#16a34a}.cogrid span:nth-child(6n+3){--c0:#e11d48}.cogrid span:nth-child(6n+4){--c0:#d97706}.cogrid span:nth-child(6n+5){--c0:#7c3aed}.cogrid span:nth-child(6n){--c0:#0891b2}
+:root[data-theme="dark"] .cogrid span{--c:color-mix(in srgb,var(--c0) 62%,#fff)}
+.cogrid span:hover{transform:translateY(-3px);background:color-mix(in srgb,var(--c) 16%,transparent);box-shadow:0 10px 22px -12px var(--c)}
 .js .cogrid span{opacity:0;transform:translateY(14px)}
-.js .cogrid.in span{opacity:.62;transform:none;transition:opacity .5s calc(var(--i)*30ms),transform .5s calc(var(--i)*30ms),color .2s}
-.js .cogrid.in span:hover{opacity:1;color:var(--acc);transform:translateY(-2px);transition:opacity .2s,transform .2s,color .2s}
+.js .cogrid.in span{opacity:1;transform:none;transition:opacity .5s calc(var(--i)*30ms),transform .5s calc(var(--i)*30ms),background .2s,box-shadow .2s}
+.js .cogrid.in span:hover{transform:translateY(-3px);transition:transform .2s,background .2s,box-shadow .2s}
 .fine{max-width:62ch;margin:10px auto 0;font-size:12px;line-height:1.5;color:var(--muted)}
 .lgs{max-width:52ch;margin:18px auto 0;color:var(--muted);font-size:15px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:30px 0 40px}

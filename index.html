@@ -1190,7 +1190,7 @@ function greeting(h){
   if(h>=17&&h<21)return["Good evening",SET];
   return["Good night",MOON];
 }
-function paintGreet(){const g=greeting(new Date().getHours());$("gt").innerHTML="<b>"+g[0]+"</b> &middot; ready to check your resume?";$("gi").innerHTML=g[1]}
+function paintGreet(){const g=greeting(new Date().getHours());$("gt").innerHTML="<b>"+g[0]+"</b> &middot; welcome to MyATS";$("gi").innerHTML=g[1]}
 paintGreet();document.addEventListener("visibilitychange",()=>{if(!document.hidden)paintGreet()});
 const TOOLS=["live","roles","compare","builder"];
 let curTool=null;

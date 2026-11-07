@@ -1,8 +1,8 @@
 /* MyATS service worker: lets the site open offline.
    HTML is network-first so new deployments show up right away;
    everything else (icons, pdf.js, mammoth, fonts) is cached after first use. */
-const V = "myats-v2";
-const CORE = ["./", "./index.html", "./manifest.webmanifest", "./favicon.png", "./icon-192.png", "./icon-512.png"];
+const V = "myats-v3";
+const CORE = ["./", "./index.html", "./manifest.webmanifest", "./icons/favicon-32.png", "./icons/apple-touch-icon.png", "./icons/icon-192.png", "./icons/icon-512.png"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(V).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));

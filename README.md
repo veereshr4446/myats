@@ -1,12 +1,12 @@
 # MyATS: Free Resume ATS Checker
 
 [![Tests](https://github.com/veereshr4446/myats/actions/workflows/test.yml/badge.svg)](https://github.com/veereshr4446/myats/actions/workflows/test.yml)
-![No backend](https://img.shields.io/badge/backend-none-5b3df5)
+![No backend](https://img.shields.io/badge/backend-none-0a3fd0)
 ![Cost](https://img.shields.io/badge/hosting-%240-16a34a)
 
 See your resume the way hiring software does. Drop in a PDF, DOCX or a photo and get a score out of 100, a list of fixes and rewrite tips. **Everything runs in the browser. Nothing is uploaded, and there is no server to pay for.**
 
-**Live demo:** https://veereshr4446.github.io/myats/
+**Live demo:** https://myats-ten.vercel.app/
 
 ![MyATS home page](docs/hero.png)
 
@@ -93,7 +93,7 @@ Enable GitHub Pages (Settings, Pages, deploy from the `main` branch), or import 
 index.html            the whole app: HTML, CSS and JavaScript
 sw.js                 service worker for offline use
 manifest.webmanifest  makes the site installable
-favicon.png, icon-*   app icons (from the MyATS logo)
+icons/                app icons (favicon, home-screen, maskable)
 og.png                share preview image
 tests/                scoring engine tests
 docs/                 screenshots used in this README

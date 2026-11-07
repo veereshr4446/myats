@@ -274,9 +274,9 @@ mark.g{background:rgba(22,163,74,.22)}mark.n{background:rgba(10,63,208,.2)}mark.
 .menubtn{width:42px;height:42px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;cursor:pointer;color:var(--ink);padding:0}
 .menubtn:hover{border-color:var(--acc);color:var(--acc)}
 .menubtn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
-.scrim{position:fixed;inset:0;background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s;z-index:59}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;z-index:59;will-change:opacity}
 .scrim.open{opacity:1;visibility:visible}
-.drawer{position:fixed;top:0;bottom:0;right:0;width:min(340px,88vw);background:var(--surface);border-left:1px solid var(--line);box-shadow:-30px 0 80px -24px rgba(0,10,40,.5);z-index:60;transform:translateX(104%);visibility:hidden;transition:transform .38s cubic-bezier(.22,1,.36,1),visibility .38s;display:flex;flex-direction:column;overflow:auto;color:var(--ink);border-radius:26px 0 0 26px}
+.drawer{position:fixed;top:0;bottom:0;right:0;width:min(340px,88vw);background:var(--surface);border-left:1px solid var(--line);box-shadow:-12px 0 40px -12px rgba(0,10,40,.45);z-index:60;transform:translateX(104%);visibility:hidden;transition:transform .3s cubic-bezier(.32,.72,0,1),visibility .3s;will-change:transform;contain:layout paint;display:flex;flex-direction:column;overflow:auto;color:var(--ink);border-radius:26px 0 0 26px}
 .drawer.open{transform:none;visibility:visible}
 .dh{position:relative;display:flex;justify-content:space-between;align-items:center;padding:calc(22px + env(safe-area-inset-top,0px)) 20px 22px;background:radial-gradient(120% 140% at 0% 0%,var(--glow),transparent 60%),linear-gradient(180deg,color-mix(in srgb,var(--acc) 9%,transparent),transparent);border-bottom:1px solid var(--line)}
 .dh .logo{font-size:28px}
@@ -288,14 +288,12 @@ mark.g{background:rgba(22,163,74,.22)}mark.n{background:rgba(10,63,208,.2)}mark.
 .dl{font:700 11px "Inter",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:20px 24px 8px}
 .dn{padding:0 12px;display:grid;gap:4px}
 .dn button[hidden]{display:none}
-.dn button{position:relative;display:flex;gap:14px;align-items:center;width:100%;text-align:left;background:none;border:1px solid transparent;border-radius:16px;padding:10px 12px;cursor:pointer;color:var(--ink);font-family:inherit;transition:background .2s,border-color .2s,transform .2s;opacity:0;transform:translateX(14px)}
-.drawer.open .dn button{opacity:1;transform:none;transition:background .2s,border-color .2s,opacity .4s ease var(--d,0s),transform .45s cubic-bezier(.22,1,.36,1) var(--d,0s)}
+.dn button{position:relative;display:flex;gap:14px;align-items:center;width:100%;text-align:left;background:none;border:1px solid transparent;border-radius:16px;padding:10px 12px;cursor:pointer;color:var(--ink);font-family:inherit;transition:background .2s,border-color .2s}
 .dn button:hover{background:color-mix(in srgb,var(--acc) 8%,transparent);border-color:var(--line)}
-.dn button:active{transform:scale(.985)}
+.dn button:active{background:color-mix(in srgb,var(--acc) 14%,transparent)}
 .dn button.on{background:linear-gradient(135deg,color-mix(in srgb,var(--acc) 16%,transparent),color-mix(in srgb,var(--acc) 6%,transparent));border-color:color-mix(in srgb,var(--acc) 40%,transparent)}
 .dn button.on::before{content:"";position:absolute;left:-12px;top:20%;bottom:20%;width:4px;border-radius:0 4px 4px 0;background:var(--acc)}
 .dn .ic{flex:none;width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:color-mix(in srgb,var(--acc) 10%,var(--surface));color:var(--acc);border:1px solid color-mix(in srgb,var(--acc) 18%,transparent);transition:background .2s,color .2s,transform .25s}
-.dn button:hover .ic{transform:scale(1.06) rotate(-4deg)}
 .dn button.on .ic{background:var(--pri);color:var(--acc-ink);border-color:transparent;box-shadow:0 8px 18px -6px var(--glow)}
 .dn svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .dn b{display:block;font:700 15px "Inter",sans-serif}
@@ -309,6 +307,7 @@ mark.g{background:rgba(22,163,74,.22)}mark.n{background:rgba(10,63,208,.2)}mark.
 .dcred{display:flex;justify-content:space-between;align-items:center;padding:12px 6px 4px;font-size:12px;color:var(--muted)}
 .dcred kbd{font:600 11px "Inter",sans-serif;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 6px;color:var(--ink);background:var(--bg)}
 body.lock{overflow:hidden}
+body.mopen *{animation-play-state:paused!important}
 .toolbar{display:none}
 .tool{position:fixed;inset:0;z-index:40;overflow:auto;background:var(--bg);border-top:0;padding:0 16px 80px}
 .tool>*{max-width:1080px;margin-left:auto!important;margin-right:auto!important}
@@ -1122,8 +1121,8 @@ const TOOLS=["live","roles","compare","builder"];
 let curTool=null;
 const drawer=$("drawer"),scrim=$("scrim"),mbtn=$("menubtn");
 function setActive(id){document.querySelectorAll("#drawer [data-go]").forEach(b=>{const on=b.dataset.go===id;b.classList.toggle("on",on);if(on)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")})}
-function openDrawer(){drawer.classList.add("open");scrim.classList.add("open");drawer.setAttribute("aria-hidden","false");mbtn.setAttribute("aria-expanded","true");document.body.classList.add("lock");$("dclose").focus()}
-function closeDrawer(focus){drawer.classList.remove("open");scrim.classList.remove("open");drawer.setAttribute("aria-hidden","true");mbtn.setAttribute("aria-expanded","false");if(!curTool)document.body.classList.remove("lock");if(focus)mbtn.focus()}
+function openDrawer(){document.body.classList.add("mopen");drawer.classList.add("open");scrim.classList.add("open");drawer.setAttribute("aria-hidden","false");mbtn.setAttribute("aria-expanded","true");document.body.classList.add("lock");$("dclose").focus({preventScroll:true})}
+function closeDrawer(focus){document.body.classList.remove("mopen");drawer.classList.remove("open");scrim.classList.remove("open");drawer.setAttribute("aria-hidden","true");mbtn.setAttribute("aria-expanded","false");if(!curTool)document.body.classList.remove("lock");if(focus)mbtn.focus()}
 function hideTool(id){const s=$(id);s.hidden=true;s.classList.remove("tool")}
 function closeTool(){if(!curTool)return;hideTool(curTool);curTool=null;document.body.classList.remove("lock");setActive("home")}
 function openTool(id,replace){

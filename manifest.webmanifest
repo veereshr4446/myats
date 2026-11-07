@@ -1,5 +1,5 @@
 {
-  "name": "MyATS: Free Resume ATS Checker",
+  "name": "MyATS",
   "short_name": "MyATS",
   "description": "Free, private resume checker. Everything runs in your browser.",
   "start_url": "./",

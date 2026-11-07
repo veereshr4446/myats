@@ -719,7 +719,7 @@ function show(r,raw){
    1) sign up free at goatcounter.com and pick a site code, e.g. "myats"
    2) paste it below. Leave "" to switch tracking off.
    Nothing is shown on the page; only you see the numbers in your dashboard. */
-const GC_CODE="";
+const GC_CODE="viresh-myats";
 function track(name){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:name,title:name,event:true})}catch(e){}}
 if(GC_CODE){const g=document.createElement("script");g.async=true;g.dataset.goatcounter="https://"+GC_CODE+".goatcounter.com/count";g.src="https://gc.zgo.at/count.js";document.head.appendChild(g)}
 /* ---------- extras ---------- */

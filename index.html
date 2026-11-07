@@ -837,14 +837,14 @@ if(!RM){
   });
   stg.addEventListener("pointermove",e=>{
     if(!drag)return;
-    ryv=Math.max(-75,Math.min(75,drag.ry+(e.clientX-drag.x)*.6));
+    ryv=drag.ry+(e.clientX-drag.x)*1;
     setR();
   });
   function release(){
     if(!drag)return;drag=null;stg.classList.remove("grab");
-    sh.style.transition="transform .8s cubic-bezier(.34,1.45,.5,1)";
-    ryv=0;rxv=0;setR();
-    clearTimeout(release.t);release.t=setTimeout(()=>{if(!drag)sh.style.transition=""},850);
+    sh.style.transition="transform .9s cubic-bezier(.34,1.45,.5,1)";
+    ryv=Math.round(ryv/360)*360;rxv=0;setR();
+    clearTimeout(release.t);release.t=setTimeout(()=>{if(drag)return;sh.style.transition="none";ryv=0;setR();requestAnimationFrame(()=>{sh.style.transition=""})},950);
   }
   stg.addEventListener("pointerup",release);stg.addEventListener("pointercancel",release);
   hero.addEventListener("pointermove",e=>{

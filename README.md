@@ -6,7 +6,7 @@
 
 See your resume the way hiring software does. Drop in a PDF, DOCX or a photo and get a score out of 100, a list of fixes and rewrite tips. **Everything runs in the browser. Nothing is uploaded, and there is no server to pay for.**
 
-**Live demo:** https://myats-ten.vercel.app/
+**Live demo:** https://myats-resume.vercel.app/
 
 ![MyATS home page](docs/hero.png)
 

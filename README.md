@@ -93,6 +93,7 @@ Enable GitHub Pages (Settings, Pages, deploy from the `main` branch), or import 
 index.html            the whole app: HTML, CSS and JavaScript
 sw.js                 service worker for offline use
 manifest.webmanifest  makes the site installable
+me.jpg               developer photo for the About dialog
 icons/                app icons (favicon, home-screen, maskable)
 og.png                share preview image
 tests/                scoring engine tests

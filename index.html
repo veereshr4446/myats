@@ -576,29 +576,29 @@ function evaluate(text,ext){
   const done=()=>({score:Math.min(100,Object.values(B).reduce((a,x)=>a+x[0],0)),bad,warn,ok,B,m});
   m.ocr=ext==="ocr-img"||ext==="ocr-pdf";
   if(ext==="pdf"||ext==="docx"){B.Format[0]=15;add(ok,"File format","."+ext+" files are read reliably by most systems.")}
-  else if(ext==="ocr-img")add(bad,"Image file","Screening software can’t read text inside images. We read this one with OCR so you still get feedback, and some words may be misread. Upload a text-based PDF when you apply.");
-  else if(ext==="ocr-pdf"){B.Format[0]=5;add(warn,"Scanned PDF","This PDF is a picture of text, so we read it with OCR and some words may be misread. Export a text-based PDF from your editor when you apply.")}
+  else if(ext==="ocr-img")add(bad,"Image file","Robots can’t read pictures. Upload a PDF or DOCX when you apply. (We still read this photo so you get feedback, but some words may be wrong.)");
+  else if(ext==="ocr-pdf"){B.Format[0]=5;add(warn,"Scanned PDF","This PDF is a scan. Save your resume again as a normal PDF, not a scan.")}
   else if(ext==="txt"){B.Format[0]=15;add(ok,"Plain text","Typed text is always readable.")}
-  else if(ext==="doc"){B.Format[0]=5;add(warn,"Older Word format","Save as PDF or DOCX so every system can read it.")}
-  else add(bad,"Image file","Screening software can’t read text inside images. Upload a text-based PDF.");
-  if(!text.trim()){add(bad,"No readable text","Nothing could be extracted, even with OCR. Try a clearer photo, or export a text-based PDF from your editor.");return done()}
+  else if(ext==="doc"){B.Format[0]=5;add(warn,"Older Word format","Save it again as a PDF or DOCX.")}
+  else add(bad,"Image file","Robots can’t read pictures. Upload a PDF or DOCX instead.");
+  if(!text.trim()){add(bad,"No readable text","We couldn’t read any text. Try a clearer photo, or upload a normal PDF.");return done()}
   const w=text.trim().split(/\s+/).length;m.words=w;
-  if(w<300)add(bad,"Too short","Only "+w+" words. Aim for 300 to 1,500.");
-  else if(w>1500){B.Length[0]=10;add(warn,"Too long","About "+w+" words, likely past two pages. Trim older or weaker entries.")}
+  if(w<300)add(bad,"Too short","Add more details. You have "+w+" words. Aim for 300 or more.");
+  else if(w>1500){B.Length[0]=10;add(warn,"Too long","Remove older or less important points. Keep it to 2 pages.")}
   else{B.Length[0]=20;add(ok,"Length","A good "+w+" words.")}
   const lo=text.toLowerCase(),found=VERBS.filter(v=>new RegExp("\\b"+v+"\\b").test(lo)),miss=VERBS.filter(v=>!found.includes(v)).slice(0,8);
   m.verbs=found.length;
   if(found.length>=10){B.Verbs[0]=25;add(ok,"Action verbs",found.length+" strong verbs found.")}
-  else{B.Verbs[0]=Math.round(found.length*2.5);add(found.length>=5?warn:bad,"Weak action verbs","Found "+found.length+". Start bullet points with words like "+miss.join(", ")+".")}
+  else{B.Verbs[0]=Math.round(found.length*2.5);add(found.length>=5?warn:bad,"Weak action verbs","Start your bullet points with strong words like "+miss.slice(0,4).join(", ")+".")}
   [["Email","email",/[\w.+-]+@[\w-]+\.[\w.]+/,7],["Phone number","phone",/\+?\d[\d\s().-]{8,}\d/,7],["LinkedIn URL","linkedin",/linkedin\.com\/in\/[\w-]+/i,6]].forEach(([n,k,re,p])=>{
-    if(re.test(text)){m[k]=true;B.Contact[0]+=p;add(ok,n,"Found.")}else add(n==="LinkedIn URL"?warn:bad,n+" missing","Add it to the top of your resume.")});
+    if(re.test(text)){m[k]=true;B.Contact[0]+=p;add(ok,n,"Found.")}else add(n==="LinkedIn URL"?warn:bad,n+" missing","Add your "+(n==="LinkedIn URL"?"LinkedIn link":n.toLowerCase())+" at the top.")});
   Object.entries(HEADERS).forEach(([n,re])=>{
     if(re.test(text)){m.heads[n]=true;B.Headings[0]+=5;add(ok,n+" heading","Standard heading found.")}
-    else{m.heads[n]=false;add(n==="Projects"?warn:bad,n+" heading missing","Use a plain heading such as “"+n+"”. Creative names confuse older systems.")}});
+    else{m.heads[n]=false;add(n==="Projects"?warn:bad,n+" heading missing","Add a section titled “"+n+"”.")}});
   const segs=text.split(/[•●▪◦]|\n/).filter(x=>x.trim().split(/\s+/).length>=6);
-  if(segs.length>=3){const nums=segs.filter(x=>/\d/.test(x)).length;if(nums/segs.length<.3)add(warn,"Few measurable results","Only "+nums+" of "+segs.length+" lines include a number. Add figures like %, users, time saved or revenue.");else add(ok,"Measurable results",nums+" lines include numbers.")}
+  if(segs.length>=3){const nums=segs.filter(x=>/\d/.test(x)).length;if(nums/segs.length<.3)add(warn,"Few measurable results","Add numbers to your bullets, like 20% or 500 users.");else add(ok,"Measurable results",nums+" lines include numbers.")}
   const bz=[...new Set((text.match(new RegExp(BUZZ.source,"gi"))||[]).map(x=>x.toLowerCase()))];
-  if(bz.length)add(warn,"Weak phrases and buzzwords","Replace: "+bz.slice(0,6).join(", ")+". Show the result instead.");else add(ok,"Clear wording","No common buzzwords found.");
+  if(bz.length)add(warn,"Weak phrases and buzzwords","Remove these words: "+bz.slice(0,6).join(", ")+".");else add(ok,"Clear wording","No common buzzwords found.");
   return done();
 }
 function buildLog(r,name){
@@ -911,9 +911,9 @@ function tipsHTML(raw){
     if(/\b(19|20)\d\d\b/.test(x0))continue;
     const x=x0.replace(/^[^:]{1,40}:\s*/,"");
     const wm=x.match(WEAKSTART),first=x.split(/\s+/)[0].replace(/[^a-z]/gi,"").toLowerCase();
-    if(wm){const rest=x.slice(wm[0].length),w1=rest.split(/\s+/)[0].toLowerCase();weak.push({o:x0,s:(PAST[w1]?PAST[w1]+rest.slice(w1.length):"Delivered "+rest).replace(/[.\s]+$/,"")+", improving [metric] by [N]%.",t:"Lead with a strong verb and show the result."})}
+    if(wm){const rest=x.slice(wm[0].length),w1=rest.split(/\s+/)[0].toLowerCase();weak.push({o:x0,s:(PAST[w1]?PAST[w1]+rest.slice(w1.length):"Delivered "+rest).replace(/[.\s]+$/,"")+", improving [metric] by [N]%.",t:"Start with a strong verb and add a result."})}
     else if(!(VERBS.includes(first)||/ed$/.test(first)||["led","built","wrote","won","ran"].includes(first)))nov.push({o:x0,s:"",t:"Start with a strong verb such as Built, Led or Improved, then add a result with a number."});
-    else if(!/\d/.test(x))nonum.push({o:x0,s:clean(x)+", cutting [metric] by [N]%.",t:"Add a number: how many, how much, how fast?"});
+    else if(!/\d/.test(x))nonum.push({o:x0,s:clean(x)+", cutting [metric] by [N]%.",t:"Add a number, like 20% or 500 users."});
   }
   const out=weak.concat(nov,nonum).slice(0,5);
   if(!out.length)return"<h5>Bullet rewrite tips</h5><p style=\"margin:4px 0 0;color:var(--muted);font-size:14px\">Every bullet starts with a strong verb and shows a result. Nice work.</p>";

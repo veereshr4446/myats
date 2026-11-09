@@ -161,3 +161,49 @@ test("keyword matching respects word boundaries", () => {
 test("the improved sample resume beats the original", () => {
   assert.ok(evaluate(SAMPLE2, "pdf").score > evaluate(SAMPLE, "pdf").score);
 });
+
+// ---- Fresher checks (tips only, no score change) ----
+const STRONG_FRESHER = `Student Name
+Bengaluru github.com/student linkedin.com/in/student student@example.com 9876543210
+Education
+Some Engineering College 2023 - 2027
+B.E. in Computer Science CGPA: 8.5
+Projects
+Smart Notes | React, Node.js, MongoDB Jan 2026
+• Built a notes app with search, reducing lookup time by 40%.
+• Developed REST APIs and deployed them for 200 users.
+Technical Skills
+Languages: C, Python, JavaScript
+Frontend: React, HTML, CSS
+Achievements
+• State Hackathon - Winner, 1st place 2026`;
+const WEAK_FRESHER = `Student Name student@example.com
+Education
+Some Engineering College B.E. in Computer Science
+Projects
+Notes app: made a notes website for my class and it was nice.
+Skills
+C, Python, JavaScript, HTML, CSS, React, Node, MongoDB, SQL, Git`;
+
+test("fresher: strong resume gets the good fresher signals", () => {
+  const r = evaluate(STRONG_FRESHER, "pdf");
+  const t = r.ok.map((x) => x.t);
+  assert.equal(r.m.fresher, true);
+  for (const k of ["CGPA or marks", "Tools next to projects", "Project or GitHub link", "Achievements with rank", "Skills in groups"])
+    assert.ok(t.includes(k), k);
+});
+test("fresher: weak resume gets simple fix tips", () => {
+  const r = evaluate(WEAK_FRESHER, "pdf");
+  const t = r.warn.map((x) => x.t);
+  for (const k of ["CGPA missing", "Add tools to each project", "GitHub link missing", "Add an achievements section", "Group your skills"])
+    assert.ok(t.includes(k), k);
+});
+test("fresher: experienced resumes get no fresher tips", () => {
+  const r = evaluate(SAMPLE, "pdf");
+  assert.ok(!r.warn.concat(r.ok).some((x) => x.t === "CGPA missing" || x.t === "Tools next to projects"));
+});
+test("fresher: tips do not change the score", () => {
+  const a = evaluate(STRONG_FRESHER, "pdf").score;
+  const b = evaluate(STRONG_FRESHER.replace("CGPA: 8.5", ""), "pdf").score;
+  assert.equal(a, b);
+});

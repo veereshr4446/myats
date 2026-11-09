@@ -570,7 +570,7 @@ function loadLib(k){
 (function(){const c=navigator.connection||{};if(c.saveData||/2g/.test(c.effectiveType||""))return;
   const go=()=>{loadLib("pdf").catch(()=>{});setTimeout(()=>loadLib("docx").catch(()=>{}),1500)};
   addEventListener("load",()=>{("requestIdleCallback" in window)?requestIdleCallback(go,{timeout:4000}):setTimeout(go,2500)},{once:true})})();
-const VERBS="managed engineered accelerated led built developed designed implemented created launched improved increased reduced delivered achieved optimized automated analyzed collaborated coordinated deployed established executed generated initiated integrated mentored negotiated organized planned produced resolved streamlined supervised trained transformed architected authored boosted configured conducted debugged drove enhanced expanded founded maintained migrated modernized oversaw pioneered refactored researched scaled secured simplified spearheaded tested wrote".split(" ");
+const VERBS="managed engineered accelerated led built developed designed implemented created launched improved increased reduced delivered achieved optimized automated analyzed collaborated coordinated deployed established executed generated initiated integrated mentored negotiated organized planned produced resolved streamlined supervised trained transformed architected authored boosted configured conducted debugged drove enhanced expanded founded maintained migrated modernized oversaw pioneered refactored researched scaled secured simplified spearheaded tested wrote enabled detected prototyped shipped published presented contributed applied evaluated monitored tracked verified simulated won".split(" ");
 const HEADERS={Experience:/\b(experience|work history|employment|internships?)\b/i,Education:/\beducation\b|\bacademic/i,Skills:/\b(skills|technologies|technical skills)\b/i,Projects:/\bprojects?\b/i};
 document.documentElement.classList.add("js");
 let theme=null;
@@ -641,6 +641,29 @@ async function extract(f,ext,onP){
   if(ext==="docx"){await loadLib("docx");return{t:(await mammoth.extractRawText({arrayBuffer:buf})).value,src:"docx"}}
   return{t:"",src:ext};
 }
+/* Extra advice for student and fresher resumes. These add tips only; they do not change the score. */
+function fresherChecks(text,w,m,warn,ok,add){
+  const fresher=/\b(cgpa|sgpa|gpa)\b|\bb\.?\s?(e|tech)\b|bachelor/i.test(text)&&/\bprojects?\b/i.test(text);
+  m.fresher=fresher;
+  if(!fresher)return;
+  if(/\b(cgpa|sgpa|gpa)\b|\d\d(\.\d+)?\s?%|percentage/i.test(text))add(ok,"CGPA or marks","Found in your education.");
+  else add(warn,"CGPA missing","Add your CGPA or percentage in the Education section.");
+  const lines=text.split("\n").map(x=>x.trim()).filter(Boolean);
+  const stack=lines.filter(x=>(/\|/.test(x)&&/,/.test(x))||/\b(tech(nology)? stack|built with|tools used)\s*:/i.test(x)).length;
+  if(stack>=1)add(ok,"Tools next to projects",stack+" project"+(stack>1?"s list":" lists")+" the tools used.");
+  else add(warn,"Add tools to each project","Write the tools after each project name, like: My App | React, Node.js, MongoDB.");
+  if(/github\.com\/[\w-]+/i.test(text)||/\bhttps?:\/\/\S+|\b[\w-]+\.(vercel\.app|netlify\.app|github\.io)\b/i.test(text))add(ok,"Project or GitHub link","Found.");
+  else if(/github/i.test(text))add(warn,"GitHub shows as a word only","Also write the full link, like github.com/yourname, so it can be read.");
+  else add(warn,"GitHub link missing","Add your GitHub link or a link to your live projects.");
+  if(/\b(achievements?|awards?|hackathons?|competitions?|certifications?)\b/i.test(text)){
+    if(/\b(1st|2nd|3rd|first|second|third|winner|winners|runner|prize|rank|finalist)\b/i.test(text))add(ok,"Achievements with rank","You name the result, not just the event.");
+    else add(warn,"Say the result in achievements","Write the rank, like “Winner, 1st place”, not just the event name.")}
+  else add(warn,"Add an achievements section","List hackathons, contests or certificates, with your rank.");
+  const grouped=lines.filter(x=>/^[A-Za-z &\/.+#-]{3,30}:\s*\S+.*,/.test(x)).length;
+  if(grouped>=2)add(ok,"Skills in groups","Easy to scan.");
+  else if(lines.some(x=>(x.match(/,/g)||[]).length>=8&&!/:/.test(x)))add(warn,"Group your skills","Split skills into groups, like Languages: C, Python and Frontend: React.");
+  if(w>800)add(warn,"More than one page","Freshers should keep the resume to one page. Cut older or less important points.");
+}
 function evaluate(text,ext){
   const bad=[],warn=[],ok=[],add=(a,t,d)=>a.push({t,d});
   const B={Format:[0,15],Length:[0,20],Verbs:[0,25],Contact:[0,20],Headings:[0,20]};
@@ -660,10 +683,10 @@ function evaluate(text,ext){
   else{B.Length[0]=20;add(ok,"Length","A good "+w+" words.")}
   const lo=text.toLowerCase(),found=VERBS.filter(v=>new RegExp("\\b"+v+"\\b").test(lo)),miss=VERBS.filter(v=>!found.includes(v)).slice(0,8);
   m.verbs=found.length;
-  if(found.length>=10){B.Verbs[0]=25;add(ok,"Action verbs",found.length+" strong verbs found.")}
+  if(found.length>=10||(w<600&&found.length>=6)){B.Verbs[0]=25;add(ok,"Action verbs",found.length+" strong verbs found.")}
   else{B.Verbs[0]=Math.round(found.length*2.5);add(found.length>=5?warn:bad,"Weak action verbs","Start your bullet points with strong words like "+miss.slice(0,4).join(", ")+".")}
   [["Email","email",/[\w.+-]+@[\w-]+\.[\w.]+/,7],["Phone number","phone",/\+?\d[\d\s().-]{8,}\d/,7],["LinkedIn URL","linkedin",/linkedin\.com\/in\/[\w-]+/i,6]].forEach(([n,k,re,p])=>{
-    if(re.test(text)){m[k]=true;B.Contact[0]+=p;add(ok,n,"Found.")}else add(n==="LinkedIn URL"?warn:bad,n+" missing","Add your "+(n==="LinkedIn URL"?"LinkedIn link":n.toLowerCase())+" at the top.")});
+    if(re.test(text)){m[k]=true;B.Contact[0]+=p;add(ok,n,"Found.")}else if(k==="linkedin"&&/linkedin/i.test(text))add(warn,"LinkedIn shows as a word only","Also write the full link, like linkedin.com/in/yourname, so it can be read.");else add(n==="LinkedIn URL"?warn:bad,n+" missing","Add your "+(n==="LinkedIn URL"?"LinkedIn link":n.toLowerCase())+" at the top.")});
   Object.entries(HEADERS).forEach(([n,re])=>{
     if(re.test(text)){m.heads[n]=true;B.Headings[0]+=5;add(ok,n+" heading","Standard heading found.")}
     else{m.heads[n]=false;add(n==="Projects"?warn:bad,n+" heading missing","Add a section titled “"+n+"”.")}});
@@ -671,6 +694,7 @@ function evaluate(text,ext){
   if(segs.length>=3){const nums=segs.filter(x=>/\d/.test(x)).length;if(nums/segs.length<.3)add(warn,"Few measurable results","Add numbers to your bullets, like 20% or 500 users.");else add(ok,"Measurable results",nums+" lines include numbers.")}
   const bz=[...new Set((text.match(new RegExp(BUZZ.source,"gi"))||[]).map(x=>x.toLowerCase()))];
   if(bz.length)add(warn,"Weak phrases and buzzwords","Remove these words: "+bz.slice(0,6).join(", ")+".");else add(ok,"Clear wording","No common buzzwords found.");
+  fresherChecks(text,w,m,warn,ok,add);
   return done();
 }
 function buildLog(r,name){
@@ -682,7 +706,7 @@ function buildLog(r,name){
     L.push(["Contact: email "+y(m.email)+"  phone "+y(m.phone)+"  linkedin "+y(m.linkedin),cc===3?"ok":cc===2?"warn":"bad"]);
     const hs=Object.entries(m.heads),hc=hs.filter(x=>x[1]).length;
     L.push(["Headings: "+hs.map(([k,v])=>k+" "+y(v)).join("  "),hc===4?"ok":hc>=3?"warn":"bad"]);
-    L.push(["Action verbs: "+m.verbs+" found",m.verbs>=10?"ok":m.verbs>=5?"warn":"bad"]);
+    L.push(["Action verbs: "+m.verbs+" found",(m.verbs>=10||(m.words<600&&m.verbs>=6))?"ok":m.verbs>=5?"warn":"bad"]);
     L.push(["Length: "+(m.words<300?"too short":m.words>1500?"too long":"good"),m.words<300?"bad":m.words>1500?"warn":"ok"]);
   }
   L.push(["Scoring… "+r.score+"/100",r.score>=75?"ok":r.score>=50?"warn":"bad"]);
